@@ -1,0 +1,497 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>if else的一些替代方式 - Smile的个人博客</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="vue">
+  <meta name="description" content="if else的一些替代方式说说烂大街的if/if.....">
+  <meta name="author" content="Smile">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">if else的一些替代方式</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">if else的一些替代方式</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>九月 06, 2018</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>12729</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+        <h1 id="if-else的一些替代方式"><a href="#if-else的一些替代方式" class="headerlink" title="if else的一些替代方式"></a>if else的一些替代方式</h1><p>说说烂大街的<code>if/if...else...</code>，程序中用得最多的流程判断语句。<br />对着曾经满屏的<code>if/if...else...</code>，心想能不能搞点事情，折腾点浪花浪里呀浪。<br />对顶着“这个需求很简单，怎么实现我不管，明天上线”的程序猿，答案必须YES。<br />**”Write Less, Do More”**，学习进步的本质就是为了更有效率地偷懒。<br />废话说完，直接上方法汇总，让我们来一窥究竟：</p>
+<h3 id="switch改写if"><a href="#switch改写if" class="headerlink" title="switch改写if"></a>switch改写if</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-number">1.</span> <span class="hljs-comment">// if 版本</span><br><span class="hljs-number">2.</span> <span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;<br><span class="hljs-number">3.</span> <span class="hljs-keyword">if</span>(a &gt; <span class="hljs-number">1</span> &amp;&amp; a &lt; <span class="hljs-number">5</span>) &#123;<br><span class="hljs-number">4.</span> <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br><span class="hljs-number">5.</span> &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(a &gt; <span class="hljs-number">5</span> &amp;&amp; a &lt; <span class="hljs-number">10</span>)&#123;<br><span class="hljs-number">6.</span> <span class="hljs-keyword">return</span> <span class="hljs-number">5</span><br><span class="hljs-number">7.</span> &#125;<span class="hljs-keyword">else</span>&#123;<br><span class="hljs-number">8.</span> <span class="hljs-keyword">return</span> <span class="hljs-number">10</span><br><span class="hljs-number">9.</span> &#125;<br><span class="hljs-number">10.</span> <br><span class="hljs-number">11.</span> <span class="hljs-comment">// switch 改版</span><br><span class="hljs-number">12.</span> <span class="hljs-keyword">switch</span>(<span class="hljs-literal">true</span>)&#123;<br><span class="hljs-number">13.</span>     <span class="hljs-keyword">case</span> (a &gt; <span class="hljs-number">1</span> &amp;&amp; a &lt; <span class="hljs-number">5</span>):<br><span class="hljs-number">14.</span> <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br><span class="hljs-number">15.</span>     <span class="hljs-keyword">case</span> (a &gt; <span class="hljs-number">5</span> &amp;&amp; a &lt; <span class="hljs-number">10</span>):<br><span class="hljs-number">16.</span> <span class="hljs-keyword">return</span> <span class="hljs-number">5</span><br><span class="hljs-number">17.</span> <span class="hljs-keyword">default</span>:<br><span class="hljs-number">18.</span> <span class="hljs-keyword">return</span> <span class="hljs-number">10</span><br><span class="hljs-number">19.</span> &#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>以上代码的<code>switch...case...</code>的用法实际使用不多，仅供参考。<br />一般case为常量时<code>switch...case...</code>用得较多。<br />选择分支较多时，建议选用<code>switch…case</code>可提高程序的效率，但<code>switch...case</code>不足的地方在于只能处理字符或者数字类型的变量，<code>if…else</code>更加灵活，可用于判断表达式是否成立，比如<code>if(a+b&gt;c)</code>,<code>if…else</code>的应用范围更广。</p>
+<h3 id="三元运算符改写if"><a href="#三元运算符改写if" class="headerlink" title="三元运算符改写if"></a>三元运算符改写if</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// if 版本</span><br><span class="hljs-keyword">if</span> (bool) &#123;<br>value = <span class="hljs-number">1</span>;<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>value = <span class="hljs-number">2</span>;<br>&#125; <br><span class="hljs-comment">// 三元运算符 版本</span><br>value = bool ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span>;<br><span class="hljs-comment">// 三元预算符 多个运算需要括号包裹 此处用了逗号表达式</span><br><span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> foo === <span class="hljs-string">&#x27;object&#x27;</span>?(<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>),<span class="hljs-number">1</span>):(<span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>),<span class="hljs-number">2</span>);<br></code></pre></td></tr></table></figure>
+
+
+<p>优点：代码简化，更加清爽，write less<br />缺点：复杂的三元运算符可读性较差，需友好注释<br />TIPS: 三元运算符后面不能带return</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-number">1.</span> <span class="hljs-comment">// 错误用法，运算符号后不能带return</span><br><span class="hljs-number">2.</span> bool ? <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> : <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="逻辑判断-and-amp-amp-和or-改写if"><a href="#逻辑判断-and-amp-amp-和or-改写if" class="headerlink" title="逻辑判断 and(&amp;&amp;)和or(||) 改写if"></a>逻辑判断 and(&amp;&amp;)和or(||) 改写if</h3><p>原理：利用逻辑判断的短路运算来实现</p>
+<blockquote>
+<p>短路：<code>&amp;&amp;</code> 中第一个表达式为假就不会去处理第二个表达式，<code>||</code> 则相反</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-number">1.</span> <span class="hljs-comment">// if为真</span><br><span class="hljs-number">2.</span> <span class="hljs-keyword">if</span> (bool) &#123;<br><span class="hljs-number">3.</span> value = getYes();<br><span class="hljs-number">4.</span> &#125;<br><span class="hljs-number">5.</span> <span class="hljs-comment">// &amp;&amp;改版</span><br><span class="hljs-number">6.</span> bool &amp;&amp; (value = getYes());<br><span class="hljs-number">7.</span> <br><span class="hljs-number">8.</span> <span class="hljs-comment">// if为假</span><br><span class="hljs-number">9.</span> <span class="hljs-keyword">if</span> (!bool) &#123;<br><span class="hljs-number">10.</span> value = getNo();<br><span class="hljs-number">11.</span> &#125;<br><span class="hljs-number">12.</span> bool || (value = getNo());<br></code></pre></td></tr></table></figure>
+
+
+<p>优点：代码简化，更加清爽，write less<br />缺点：适用于简单判断逻辑，复杂的判断运算可读性较差，需友好注释<br />TIPS：适用于没有else的场景, 逻辑运算符后面不能带return</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-number">1.</span> <span class="hljs-comment">// 错误用法，运算符号后不能带return</span><br><span class="hljs-number">2.</span> boll || <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br></code></pre></td></tr></table></figure>
+
+
+<hr>
+<h4 id="知识点插播-——-1"><a href="#知识点插播-——-1" class="headerlink" title="知识点插播 —— (1)"></a>知识点插播 —— (1)</h4><ol>
+<li>三元运算符和逻辑运算符都有一层return作用，但不可作用于函数return语句，所以像以下这种用法都是错误的；</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-number">1.</span> <span class="hljs-comment">// 错误用法</span><br><span class="hljs-number">2.</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getResult</span>(<span class="hljs-params">value</span>) </span>&#123;<br><span class="hljs-number">3.</span>     value ? <span class="hljs-string">&#x27;yes&#x27;</span> : <span class="hljs-string">&#x27;no&#x27;</span>;<br><span class="hljs-number">4.</span> &#125;<br><span class="hljs-number">5.</span> <span class="hljs-keyword">var</span> result = getResult(<span class="hljs-literal">true</span>); <span class="hljs-comment">// 并不会有值返回</span><br></code></pre></td></tr></table></figure>
+
+
+<ol>
+<li>js逻辑运算中，<code>0/&quot;&quot;/null/false/undefined/NaN</code>都会判为<code>false</code>，其它都为<code>true</code>；</li>
+<li>很多开源代码中可见<code>if(!!attr)</code>，为什么不直接写<code>if(attr)</code>， 其实这是一种更严谨的写法，<code>!!attr</code>会强制转化为boolean类型。<code>typeof !!attr == true</code> 比 <code>typeof attr == true</code> 更加严谨。</li>
+</ol>
+<hr>
+<h3 id="对象属性"><a href="#对象属性" class="headerlink" title="对象属性"></a>对象属性</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-number">1.</span> <span class="hljs-comment">// if版本</span><br><span class="hljs-number">2.</span> <span class="hljs-keyword">if</span> (a == <span class="hljs-number">1</span>) &#123;<br><span class="hljs-number">3.</span> <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;one&#x27;</span>;<br><span class="hljs-number">4.</span> &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (a == <span class="hljs-number">2</span>) &#123;<br><span class="hljs-number">5.</span> <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;two&#x27;</span>;<br><span class="hljs-number">6.</span> &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (a == <span class="hljs-number">3</span>) &#123;<br><span class="hljs-number">7.</span> <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;three&#x27;</span>;<br><span class="hljs-number">8.</span> &#125; <span class="hljs-keyword">else</span> &#123;<br><span class="hljs-number">9.</span> <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>;<br><span class="hljs-number">10.</span> &#125;<br><span class="hljs-number">11.</span> <br><span class="hljs-number">12.</span> <span class="hljs-comment">// 对象属性 改版</span><br><span class="hljs-number">13.</span> <span class="hljs-keyword">var</span> ret = &#123;<br><span class="hljs-number">14.</span> <span class="hljs-number">1</span>: <span class="hljs-string">&#x27;one&#x27;</span>,<br><span class="hljs-number">15.</span> <span class="hljs-number">2</span>: <span class="hljs-string">&#x27;two&#x27;</span>,<br><span class="hljs-number">16.</span> <span class="hljs-number">3</span>: <span class="hljs-string">&#x27;three&#x27;</span><br><span class="hljs-number">17.</span> &#125;;<br><span class="hljs-number">18.</span> <span class="hljs-keyword">return</span> ret[a] ? ret[a] : <span class="hljs-string">&#x27;&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+
+<p>TIPS：</p>
+<ol>
+<li>判断值需为确定值，如<code>==</code> ，其它如<code>&gt;=/&lt;=/&gt;/&lt;</code>不适用</li>
+<li>条件作为对象属性，需要注意对象属性的读取方式</li>
+</ol>
+<hr>
+<h4 id="知识点插播-——-2"><a href="#知识点插播-——-2" class="headerlink" title="知识点插播 —— (2)"></a>知识点插播 —— (2)</h4><h1 id="JS的命名规则（变量的命名规则）"><a href="#JS的命名规则（变量的命名规则）" class="headerlink" title="JS的命名规则（变量的命名规则）"></a>JS的命名规则（变量的命名规则）</h1><ul>
+<li>标识符只能由字母、数字、下划线和‘$’组成</li>
+<li>数字不可以作为标识符的首字符</li>
+</ul>
+<h1 id="对象属性的命名规则"><a href="#对象属性的命名规则" class="headerlink" title="对象属性的命名规则"></a>对象属性的命名规则</h1><ul>
+<li>通过<code>[]</code>操作符为对象添加属性时，属性名可以是任何字符串（包括只包含空格的字符串和空字符串）；</li>
+<li>通过<code>.</code>操作符为对象添加属性时，属性名必须是合法的标识符名称；</li>
+<li>如果属性名包含非法的标识符字符，则只能采用<code>obj[“propertyName”]</code>的形式；</li>
+<li>如果属性名是合法的标识符，读取时可采用<code>obj.propertyName</code>或<code>obj[“propertyName”]</code>的形式；</li>
+</ul>
+<hr>
+<h3 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h3><blockquote>
+<p>策略模式：定义一系列的算法，把它们一个个封装起来，目的就是将算法的使用与算法的实现分离开来</p>
+</blockquote>
+<p>以下为常见的表单验证，用策略模式来构建，替换<code>if...else</code>的方式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-number">1.</span> <span class="hljs-comment">// html</span><br><span class="hljs-number">2.</span> &lt;form id = <span class="hljs-string">&quot;registerForm&quot;</span> method=<span class="hljs-string">&quot;post&quot;</span> action=<span class="hljs-string">&quot;http://xxxx.com/api/register&quot;</span>&gt;<br><span class="hljs-number">3.</span>     用户名：&lt;input type=<span class="hljs-string">&quot;text&quot;</span> name=<span class="hljs-string">&quot;userName&quot;</span>&gt;<br><span class="hljs-number">4.</span>     密码：&lt;input type=<span class="hljs-string">&quot;text&quot;</span> name=<span class="hljs-string">&quot;password&quot;</span>&gt;<br><span class="hljs-number">5.</span>     手机号码：&lt;input type=<span class="hljs-string">&quot;text&quot;</span> name=<span class="hljs-string">&quot;phoneNumber&quot;</span>&gt;<br><span class="hljs-number">6.</span> &lt;button type=<span class="hljs-string">&quot;submit&quot;</span>&gt;提交&lt;/button&gt;<br><span class="hljs-number">7.</span> &lt;/form&gt;<br><span class="hljs-number">8.</span> <br><span class="hljs-number">9.</span> <span class="hljs-comment">// js</span><br><span class="hljs-number">10.</span> <span class="hljs-comment">// 策略对象</span><br><span class="hljs-number">11.</span> <span class="hljs-keyword">var</span> strategies = &#123;<br><span class="hljs-number">12.</span> isNoEmpty: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value, errorMsg</span>) </span>&#123;<br><span class="hljs-number">13.</span> <span class="hljs-keyword">if</span> (value === <span class="hljs-string">&#x27;&#x27;</span>) &#123;<br><span class="hljs-number">14.</span> <span class="hljs-keyword">return</span> errorMsg;<br><span class="hljs-number">15.</span>         &#125;<br><span class="hljs-number">16.</span>     &#125;,<br><span class="hljs-number">17.</span> isNoSpace: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value, errorMsg</span>) </span>&#123;<br><span class="hljs-number">18.</span> <span class="hljs-keyword">if</span> (value.trim() === <span class="hljs-string">&#x27;&#x27;</span>) &#123;<br><span class="hljs-number">19.</span> <span class="hljs-keyword">return</span> errorMsg;<br><span class="hljs-number">20.</span>         &#125;<br><span class="hljs-number">21.</span>     &#125;,<br><span class="hljs-number">22.</span> minLength: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value, length, errorMsg</span>) </span>&#123;<br><span class="hljs-number">23.</span> <span class="hljs-keyword">if</span> (value.trim().length &lt; length) &#123;<br><span class="hljs-number">24.</span> <span class="hljs-keyword">return</span> errorMsg;<br><span class="hljs-number">25.</span>         &#125;<br><span class="hljs-number">26.</span>     &#125;,<br><span class="hljs-number">27.</span> maxLength: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value, length, errorMsg</span>) </span>&#123;<br><span class="hljs-number">28.</span> <span class="hljs-keyword">if</span> (value.length &gt; length) &#123;<br><span class="hljs-number">29.</span> <span class="hljs-keyword">return</span> errorMsg;<br><span class="hljs-number">30.</span>         &#125;<br><span class="hljs-number">31.</span>     &#125;,<br><span class="hljs-number">32.</span> isMobile: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value, errorMsg</span>) </span>&#123;<br><span class="hljs-number">33.</span> <span class="hljs-keyword">if</span> (!<span class="hljs-regexp">/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|17[7]|18[0|1|2|3|5|6|7|8|9])\d&#123;8&#125;$/</span>.test(value)) &#123;<br><span class="hljs-number">34.</span> <span class="hljs-keyword">return</span> errorMsg;<br><span class="hljs-number">35.</span>         &#125;                <br><span class="hljs-number">36.</span>     &#125;<br><span class="hljs-number">37.</span> &#125;<br><span class="hljs-number">38.</span> <br><span class="hljs-number">39.</span> <span class="hljs-comment">// 验证类</span><br><span class="hljs-number">40.</span> <span class="hljs-keyword">var</span> Validator = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br><span class="hljs-number">41.</span> <span class="hljs-built_in">this</span>.cache = [];<br><span class="hljs-number">42.</span> &#125;<br><span class="hljs-number">43.</span> Validator.prototype.add = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">dom, rules</span>) </span>&#123;<br><span class="hljs-number">44.</span> <span class="hljs-keyword">var</span> self = <span class="hljs-built_in">this</span>;<br><span class="hljs-number">45.</span> <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, rule; rule = rules[i++];) &#123;<br><span class="hljs-number">46.</span>         (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">rule</span>) </span>&#123;<br><span class="hljs-number">47.</span> <span class="hljs-keyword">var</span> strategyAry = rule.strategy.split(<span class="hljs-string">&#x27;:&#x27;</span>);<br><span class="hljs-number">48.</span> <span class="hljs-keyword">var</span> errorMsg = rule.errorMsg;<br><span class="hljs-number">49.</span>             self.cache.push(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br><span class="hljs-number">50.</span> <span class="hljs-keyword">var</span> strategy = strategyAry.shift();<br><span class="hljs-number">51.</span>             strategyAry.unshift(dom.value);<br><span class="hljs-number">52.</span>             strategyAry.push(errorMsg);<br><span class="hljs-number">53.</span> <span class="hljs-keyword">return</span> strategies[strategy].apply(dom, strategyAry);<br><span class="hljs-number">54.</span>             &#125;)<br><span class="hljs-number">55.</span>         &#125;)(rule)<br><span class="hljs-number">56.</span>     &#125;<br><span class="hljs-number">57.</span> &#125;;<br><span class="hljs-number">58.</span> Validator.prototype.start = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br><span class="hljs-number">59.</span> <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, validatorFunc; validatorFunc = <span class="hljs-built_in">this</span>.cache[i++];) &#123;<br><span class="hljs-number">60.</span> <span class="hljs-keyword">var</span> errorMsg = validatorFunc();<br><span class="hljs-number">61.</span> <span class="hljs-keyword">if</span> (errorMsg) &#123;<br><span class="hljs-number">62.</span> <span class="hljs-keyword">return</span> errorMsg;<br><span class="hljs-number">63.</span>         &#125;<br><span class="hljs-number">64.</span>     &#125;<br><span class="hljs-number">65.</span> &#125;;<br><span class="hljs-number">66.</span> <br><span class="hljs-number">67.</span> <span class="hljs-comment">// 调用代码</span><br><span class="hljs-number">68.</span> <span class="hljs-keyword">var</span> registerForm = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;registerForm&#x27;</span>);<br><span class="hljs-number">69.</span> <br><span class="hljs-number">70.</span> <span class="hljs-keyword">var</span> validataFunc = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br><span class="hljs-number">71.</span> <span class="hljs-keyword">var</span> validator = <span class="hljs-keyword">new</span> Validator();<br><span class="hljs-number">72.</span>     validator.add(registerForm.userName, [&#123;<br><span class="hljs-number">73.</span> strategy: <span class="hljs-string">&#x27;isNoEmpty&#x27;</span>,<br><span class="hljs-number">74.</span> errorMsg: <span class="hljs-string">&#x27;用户名不可为空&#x27;</span><br><span class="hljs-number">75.</span>     &#125;, &#123;<br><span class="hljs-number">76.</span> strategy: <span class="hljs-string">&#x27;isNoSpace&#x27;</span>,<br><span class="hljs-number">77.</span> errorMsg: <span class="hljs-string">&#x27;不允许以空白字符命名&#x27;</span><br><span class="hljs-number">78.</span>     &#125;, &#123;<br><span class="hljs-number">79.</span> strategy: <span class="hljs-string">&#x27;minLength:2&#x27;</span>,<br><span class="hljs-number">80.</span> errorMsg: <span class="hljs-string">&#x27;用户名长度不能小于2位&#x27;</span><br><span class="hljs-number">81.</span>     &#125;]);<br><span class="hljs-number">82.</span>     validator.add(registerForm.password, [ &#123;<br><span class="hljs-number">83.</span> strategy: <span class="hljs-string">&#x27;minLength:6&#x27;</span>,<br><span class="hljs-number">84.</span> errorMsg: <span class="hljs-string">&#x27;密码长度不能小于6位&#x27;</span><br><span class="hljs-number">85.</span>     &#125;]);<br><span class="hljs-number">86.</span>     validator.add(registerForm.phoneNumber, [&#123;<br><span class="hljs-number">87.</span> strategy: <span class="hljs-string">&#x27;isMobile&#x27;</span>,<br><span class="hljs-number">88.</span> errorMsg: <span class="hljs-string">&#x27;请输入正确的手机号码格式&#x27;</span><br><span class="hljs-number">89.</span>     &#125;]);<br><span class="hljs-number">90.</span> <span class="hljs-keyword">var</span> errorMsg = validator.start();<br><span class="hljs-number">91.</span> <span class="hljs-keyword">return</span> errorMsg;<br><span class="hljs-number">92.</span> &#125;<br><span class="hljs-number">93.</span> <br><span class="hljs-number">94.</span> registerForm.onsubmit = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br><span class="hljs-number">95.</span> <span class="hljs-keyword">var</span> errorMsg = validataFunc();<br><span class="hljs-number">96.</span> <span class="hljs-keyword">if</span> (errorMsg) &#123;<br><span class="hljs-number">97.</span>         alert(errorMsg);<br><span class="hljs-number">98.</span> <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br><span class="hljs-number">99.</span>     &#125;<br><span class="hljs-number">100.</span> &#125;<br></code></pre></td></tr></table></figure>
+
+
+<ul>
+<li>第一个部分是一组策略类，策略类封装了具体的算法，并负责具体的计算过程;</li>
+<li>第二个部分是环境类Context，该Context接收客户端的请求，随后把请求委托给某一个策略类;</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li>有效避免多重条件选择语句</li>
+<li>提供了对外开放 - 封装原则的完美支持，将方法封装在独立的strategy中，使得它们易于切换、易于理解、易于扩展。</li>
+<li>复用性</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>增加了策略类/对象的使用</li>
+<li>使用策略模式，必须先了解所有的strategy，违反了最少知识原则</li>
+</ol>
+<p>if else的一些替代方式</p>
+<h3 id="对象方式优化if-else"><a href="#对象方式优化if-else" class="headerlink" title="对象方式优化if else"></a>对象方式优化if else</h3><blockquote>
+<p>该方式是在掘金上看到的一篇文章，地址：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7027768816713236487">https://juejin.cn/post/7027768816713236487</a></p>
+</blockquote>
+<blockquote>
+<p>示例描述：根据 文件后缀<code>fileSuffix</code> 所属的范围，获取对应单一的<code>icon</code>值</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-comment">// 文件后缀</span><br><span class="hljs-keyword">const</span> fileSuffix = <span class="hljs-string">&#x27;ppt&#x27;</span><br><br><span class="hljs-comment">// 创建映射</span><br><span class="hljs-keyword">const</span> map = &#123;<br>    <span class="hljs-string">&quot;xls&quot;</span>:[<span class="hljs-string">&quot;xls&quot;</span>, <span class="hljs-string">&quot;xlsx&quot;</span>, <span class="hljs-string">&quot;xlsm&quot;</span>],<br>    <span class="hljs-string">&quot;doc&quot;</span>: [<span class="hljs-string">&quot;doc&quot;</span>, <span class="hljs-string">&quot;docx&quot;</span>],<br>    <span class="hljs-string">&quot;ppt&quot;</span>: [<span class="hljs-string">&quot;ppt&quot;</span>, <span class="hljs-string">&quot;pptx&quot;</span>],<br>    <span class="hljs-string">&quot;pdf&quot;</span>: [<span class="hljs-string">&quot;pdf&quot;</span>],<br>    <span class="hljs-string">&quot;audio&quot;</span>:[<span class="hljs-string">&quot;mp3&quot;</span>, <span class="hljs-string">&quot;wma&quot;</span>],<br>    <span class="hljs-string">&quot;media&quot;</span>:[<span class="hljs-string">&quot;mp4&quot;</span>],<br>    <span class="hljs-string">&quot;zip&quot;</span>: [<span class="hljs-string">&quot;zip&quot;</span>, <span class="hljs-string">&quot;7z&quot;</span>, <span class="hljs-string">&quot;rar&quot;</span>, <span class="hljs-string">&quot;apz&quot;</span>],<br>    <span class="hljs-string">&quot;txt&quot;</span>:[<span class="hljs-string">&quot;txt&quot;</span>],<br>    <span class="hljs-string">&quot;image&quot;</span>:[<span class="hljs-string">&quot;jpg&quot;</span>, <span class="hljs-string">&quot;jpeg&quot;</span>, <span class="hljs-string">&quot;gif&quot;</span>, <span class="hljs-string">&quot;png&quot;</span>]<br>&#125;<br><span class="hljs-comment">// 有的小伙伴可能或 for in 循环对象判断</span><br><span class="hljs-comment">// 少数或许实现思路是这样的</span><br><span class="hljs-keyword">const</span> icon = <span class="hljs-built_in">Object</span>.keys(map)[<span class="hljs-built_in">Object</span>.values(map).findIndex(<span class="hljs-function"><span class="hljs-params">i</span> =&gt;</span> i.includes(fileSuffix))] || <span class="hljs-string">&#x27;default&#x27;</span><br><br></code></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>思考：如果我们现在有这么一个场景，多个范围值对应一个单一值，这个 单一值 可以是一个字符串，也可以是一个函数，传入的值如果不在对应范围值内，我们需要返回一个默认值或执行一个默认的函数，那么我们又当如何做呢</p>
+</blockquote>
+<p>示例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-comment">// 文件后缀</span><br><span class="hljs-keyword">const</span> fileSuffix = <span class="hljs-string">&#x27;ppt&#x27;</span><br><span class="hljs-keyword">const</span> defaultFn = <span class="hljs-function">()=&gt;</span>&#123;&#125;<br><br> <span class="hljs-comment">// 如果 fileSuffix 是属于 [&quot;xls&quot;, &quot;xlsx&quot;, &quot;xlsm&quot;]当中，返回&quot;xls&quot;</span><br> <span class="hljs-comment">// 如果 fileSuffix 是属于 [&quot;zip&quot;] 当中，就返回 逻辑处理的的结果，否则就 执行默认函数 </span><br> <br> <span class="hljs-keyword">if</span>([<span class="hljs-string">&quot;xls&quot;</span>, <span class="hljs-string">&quot;xlsx&quot;</span>, <span class="hljs-string">&quot;xlsm&quot;</span>].includes(fileSuffix))&#123;<br>     <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;xls&quot;</span><br> &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>([<span class="hljs-string">&quot;zip&quot;</span>].includes(fileSuffix))&#123;<br>     <span class="hljs-comment">// 各种逻辑处理...</span><br>     <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;各种逻辑处理后的结果&quot;</span><br> &#125;<br> <span class="hljs-comment">// 两个还好处理，一旦变得多起来，这种if else 就不好维护了</span><br><br></code></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>有的小伙伴或许想到了 Map，因为任何值(对象或者<a href="https://link.juejin.cn/?target=https://developer.mozilla.org/zh-CN/docs/Glossary/Primitive">原始值</a>) 都可以作为一个键,但是我还是不想用 Map 来实现，请原谅我的倔强</p>
+</blockquote>
+<p>继续思考和优化，创建了3种数据类型，都需要达到兼容</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-comment">// 文件后缀</span><br><span class="hljs-keyword">const</span> fileSuffix = <span class="hljs-string">&#x27;ppt&#x27;</span><br><br><span class="hljs-comment">// 创建数 据类型 1，fileSuffix 只有属于对应 key 解析后的数组，就返回对应的字符串值</span><br><span class="hljs-keyword">const</span> type1 = &#123;<br>    <span class="hljs-string">&#x27;[&quot;xls&quot;, &quot;xlsx&quot;, &quot;xlsm&quot;]&#x27;</span>:<span class="hljs-string">&quot;xls&quot;</span>,<br>    <span class="hljs-string">&#x27;[&quot;doc&quot;, &quot;docx&quot;]&#x27;</span>:<span class="hljs-string">&quot;doc&quot;</span>,<br>    <span class="hljs-string">&#x27;[&quot;ppt&quot;, &quot;pptx&quot;]&#x27;</span>:<span class="hljs-string">&quot;ppt&quot;</span>,<br>    <span class="hljs-string">&#x27;[&quot;pdf&quot;]&#x27;</span>:<span class="hljs-string">&quot;pdf&quot;</span>,<br>    <span class="hljs-string">&#x27;[&quot;mp3&quot;, &quot;wma&quot;]&#x27;</span>:<span class="hljs-string">&quot;audio&quot;</span>,<br>    <span class="hljs-string">&#x27;[&quot;mp4&quot;]&#x27;</span>:<span class="hljs-string">&quot;media&quot;</span>,<br>    <span class="hljs-string">&#x27;[&quot;zip&quot;, &quot;7z&quot;, &quot;rar&quot;, &quot;apz&quot;]&#x27;</span>:<span class="hljs-string">&quot;zip&quot;</span>,<br>    <span class="hljs-string">&#x27;[&quot;txt&quot;]&#x27;</span>:<span class="hljs-string">&quot;txt&quot;</span>,<br>    <span class="hljs-string">&#x27;[&quot;jpg&quot;, &quot;jpeg&quot;, &quot;gif&quot;, &quot;png&quot;]&#x27;</span>:<span class="hljs-string">&quot;image&quot;</span><br>&#125;<br><br><span class="hljs-comment">// 创建数 据类型 2，fileSuffix 只有属于对应 key 解析后的数组，就返回对应函数返回的值</span><br><span class="hljs-keyword">const</span> type2 = &#123;<br>    <span class="hljs-string">&#x27;[&quot;xls&quot;, &quot;xlsx&quot;, &quot;xlsm&quot;]&#x27;</span>:<span class="hljs-function">()=&gt;</span>&#123;<br>        <span class="hljs-comment">// 各种逻辑处理...</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;各种逻辑处理的结果&quot;</span>+<span class="hljs-string">&quot;xls&quot;</span><br>    &#125;,<br>    <span class="hljs-string">&#x27;[&quot;doc&quot;, &quot;docx&quot;]&#x27;</span>:<span class="hljs-function">()=&gt;</span>&#123;<br>         <span class="hljs-comment">// 各种逻辑处理...</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;各种逻辑处理的结果&quot;</span>+<span class="hljs-string">&quot;doc&quot;</span><br>    &#125;,<br>    <span class="hljs-string">&#x27;[&quot;ppt&quot;, &quot;pptx&quot;]&#x27;</span>:<span class="hljs-function">()=&gt;</span>&#123;<br>           <span class="hljs-comment">// 各种逻辑处理...</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;各种逻辑处理的结果&quot;</span>+<span class="hljs-string">&quot;ppt&quot;</span><br>    &#125;,<br>    <span class="hljs-string">&#x27;[&quot;pdf&quot;]&#x27;</span>:<span class="hljs-function">()=&gt;</span>&#123;<br>          <span class="hljs-comment">// 各种逻辑处理...</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;各种逻辑处理的结果&quot;</span>+<span class="hljs-string">&quot;pdf&quot;</span><br>    &#125;,<br>    <span class="hljs-string">&#x27;[&quot;mp3&quot;, &quot;wma&quot;]&#x27;</span>:<span class="hljs-function">()=&gt;</span>&#123;<br>          <span class="hljs-comment">// 各种逻辑处理...</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;各种逻辑处理的结果&quot;</span>+<span class="hljs-string">&quot;audio&quot;</span><br>    &#125;,<br>    <span class="hljs-string">&#x27;[&quot;mp4&quot;]&#x27;</span>:<span class="hljs-function">()=&gt;</span>&#123;<br>          <span class="hljs-comment">// 各种逻辑处理...</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;各种逻辑处理的结果&quot;</span>+<span class="hljs-string">&quot;media&quot;</span><br>    &#125;,<br>    <span class="hljs-string">&#x27;[&quot;zip&quot;, &quot;7z&quot;, &quot;rar&quot;, &quot;apz&quot;]&#x27;</span>:<span class="hljs-function">()=&gt;</span>&#123;<br>          <span class="hljs-comment">// 各种逻辑处理...</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;各种逻辑处理的结果&quot;</span>+<span class="hljs-string">&quot;zip&quot;</span><br>    &#125;,<br>    <span class="hljs-string">&#x27;[&quot;txt&quot;]&#x27;</span>:<span class="hljs-function">()=&gt;</span>&#123;<br>          <span class="hljs-comment">// 各种逻辑处理...</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;各种逻辑处理的结果&quot;</span>+<span class="hljs-string">&quot;txt&quot;</span><br>    &#125;,<br>    <span class="hljs-string">&#x27;[&quot;jpg&quot;, &quot;jpeg&quot;, &quot;gif&quot;, &quot;png&quot;]&#x27;</span>:<span class="hljs-function">()=&gt;</span>&#123;<br>          <span class="hljs-comment">// 各种逻辑处理...</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;各种逻辑处理的结果&quot;</span>+<span class="hljs-string">&quot;image&quot;</span><br>    &#125;<br>&#125;<br><span class="hljs-comment">// 创建数 据类型 3，fileSuffix 只有属于对应 key 解析后的数组，就返回对应的字符串值 或 返回 对应函数返回的值</span><br><span class="hljs-keyword">const</span> type3 = &#123;<br>    <span class="hljs-string">&#x27;[&quot;xls&quot;, &quot;xlsx&quot;, &quot;xlsm&quot;]&#x27;</span>:<span class="hljs-string">&quot;xls&quot;</span>,<br>    <span class="hljs-string">&#x27;[&quot;doc&quot;, &quot;docx&quot;]&#x27;</span>:<span class="hljs-string">&quot;doc&quot;</span>,<br>    <span class="hljs-string">&#x27;[&quot;ppt&quot;, &quot;pptx&quot;]&#x27;</span>:<span class="hljs-string">&quot;ppt&quot;</span>,<br>    <span class="hljs-string">&#x27;[&quot;pdf&quot;]&#x27;</span>:<span class="hljs-string">&quot;pdf&quot;</span>,<br>    <span class="hljs-string">&#x27;[&quot;mp3&quot;, &quot;wma&quot;]&#x27;</span>:<span class="hljs-function">()=&gt;</span>&#123;<br>       <span class="hljs-comment">// 各种逻辑处理...</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;各种逻辑处理的结果&quot;</span>+<span class="hljs-string">&quot;audio&quot;</span><br>    &#125;,<br>    <span class="hljs-string">&#x27;[&quot;mp4&quot;]&#x27;</span>:<span class="hljs-string">&quot;media&quot;</span>,<br>    <span class="hljs-string">&#x27;[&quot;zip&quot;, &quot;7z&quot;, &quot;rar&quot;, &quot;apz&quot;]&#x27;</span>:<span class="hljs-string">&quot;zip&quot;</span>,<br>    <span class="hljs-string">&#x27;[&quot;txt&quot;]&#x27;</span>:<span class="hljs-string">&quot;txt&quot;</span>,<br>    <span class="hljs-string">&#x27;[&quot;jpg&quot;, &quot;jpeg&quot;, &quot;gif&quot;, &quot;png&quot;]&#x27;</span>:<span class="hljs-function">()=&gt;</span>&#123;<br>        <span class="hljs-comment">// 各种逻辑处理...</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;各种逻辑处理的结果&quot;</span>+<span class="hljs-string">&quot;image&quot;</span><br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>switch 优化的第一反应应该是对象，但是也看具体情况</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">previewWeek</span>(<span class="hljs-params">i</span>)</span>&#123;<br>    <span class="hljs-keyword">switch</span>(i)&#123;<br>        <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;星期一&#x27;</span><br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;星期二&#x27;</span><br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;星期三&#x27;</span><br>            <span class="hljs-keyword">break</span>;  <br>        <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;星期四&#x27;</span><br>            <span class="hljs-keyword">break</span>;  <br>        <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;星期五&#x27;</span><br>            <span class="hljs-keyword">break</span>;  <br>        <span class="hljs-keyword">case</span> <span class="hljs-number">6</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;星期六&#x27;</span><br>            <span class="hljs-keyword">break</span>;  <br>        <span class="hljs-keyword">case</span> <span class="hljs-number">7</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;星期日&#x27;</span><br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">default</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span><br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>用 对象形式优化</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">previewWeek</span>(<span class="hljs-params">i</span>)</span>&#123;<br>    <span class="hljs-keyword">return</span> (&#123;<br>        <span class="hljs-number">1</span>:<span class="hljs-string">&#x27;星期一&#x27;</span>,<br>        <span class="hljs-number">2</span>:<span class="hljs-string">&#x27;星期二&#x27;</span>,<br>        <span class="hljs-number">3</span>:<span class="hljs-string">&#x27;星期三&#x27;</span>,<br>        <span class="hljs-number">4</span>:<span class="hljs-string">&#x27;星期四&#x27;</span>,<br>        <span class="hljs-number">5</span>:<span class="hljs-string">&#x27;星期五&#x27;</span>,<br>        <span class="hljs-number">6</span>:<span class="hljs-string">&#x27;星期六&#x27;</span>,<br>        <span class="hljs-number">7</span>:<span class="hljs-string">&#x27;星期日&#x27;</span>,<br>    &#125;)[i] || <span class="hljs-string">&#x27;&#x27;</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+<p>是不一样了，代码确实少了很多，其实观察其特征，不用对象也是可以优化的，这特征就是规律，键值都是对应的，1的值是 ‘星期一’,都是 1，和索引有关系，那么索引和数组有关系，那么我们用数组试试呢</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">previewWeek</span>(<span class="hljs-params">i</span>)</span>&#123;<br>    <span class="hljs-keyword">return</span>  i&gt;<span class="hljs-number">0</span> &amp;&amp; i&lt;<span class="hljs-number">8</span> ?<span class="hljs-string">&#x27;星期&#x27;</span>+[<span class="hljs-string">&#x27;一&#x27;</span>,<span class="hljs-string">&#x27;二&#x27;</span>,<span class="hljs-string">&#x27;三&#x27;</span>,<span class="hljs-string">&#x27;四&#x27;</span>,<span class="hljs-string">&#x27;五&#x27;</span>,<span class="hljs-string">&#x27;六&#x27;</span>,<span class="hljs-string">&#x27;日&#x27;</span>][i-<span class="hljs-number">1</span>]:<span class="hljs-string">&#x27;&#x27;</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>Smile</li>
+    <li><strong>本文链接：</strong><a href="http://example.com/2018/09/06/js/if%20else%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9B%BF%E4%BB%A3%E6%96%B9%E5%BC%8F/if%20else%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9B%BF%E4%BB%A3%E6%96%B9%E5%BC%8F/index.html" title="http:&#x2F;&#x2F;example.com&#x2F;2018&#x2F;09&#x2F;06&#x2F;js&#x2F;if%20else%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9B%BF%E4%BB%A3%E6%96%B9%E5%BC%8F&#x2F;if%20else%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9B%BF%E4%BB%A3%E6%96%B9%E5%BC%8F&#x2F;index.html">http:&#x2F;&#x2F;example.com&#x2F;2018&#x2F;09&#x2F;06&#x2F;js&#x2F;if%20else%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9B%BF%E4%BB%A3%E6%96%B9%E5%BC%8F&#x2F;if%20else%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9B%BF%E4%BB%A3%E6%96%B9%E5%BC%8F&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img   class="lazyload" data-original="https://pic.izhaoo.com/alipay.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/if-else/" rel="tag">if else</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2019/02/16/js/%E5%88%A4%E6%96%AD%E4%BB%8A%E5%B9%B4%E6%98%AF%E5%90%A6%E4%B8%BA%E9%97%B0%E5%B9%B4/%E5%88%A4%E6%96%AD%E4%BB%8A%E5%B9%B4%E6%98%AF%E5%90%A6%E4%B8%BA%E9%97%B0%E5%B9%B4/"><i class="iconfont iconleft"></i>判断今年是否为闰年</a>
+    <a href="/2018/08/17/js/%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E5%8E%BB%E9%99%A4id%E7%9B%B8%E5%90%8C%E7%9A%84%E9%82%A3%E4%B8%80%E9%A1%B9/%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E5%8E%BB%E9%99%A4id%E7%9B%B8%E5%90%8C%E7%9A%84%E9%82%A3%E4%B8%80%E9%A1%B9/">两个数组去除id相同的那一项<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#if-else%E7%9A%84%E4%B8%80%E4%BA%9B%E6%9B%BF%E4%BB%A3%E6%96%B9%E5%BC%8F"><span class="toc-text">if else的一些替代方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#switch%E6%94%B9%E5%86%99if"><span class="toc-text">switch改写if</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E5%85%83%E8%BF%90%E7%AE%97%E7%AC%A6%E6%94%B9%E5%86%99if"><span class="toc-text">三元运算符改写if</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%88%A4%E6%96%AD-and-amp-amp-%E5%92%8Cor-%E6%94%B9%E5%86%99if"><span class="toc-text">逻辑判断 and(&amp;&amp;)和or(||) 改写if</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7"><span class="toc-text">对象属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JS%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99%EF%BC%88%E5%8F%98%E9%87%8F%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99%EF%BC%89"><span class="toc-text">JS的命名规则（变量的命名规则）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="toc-text">对象属性的命名规则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F"><span class="toc-text">策略模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E6%96%B9%E5%BC%8F%E4%BC%98%E5%8C%96if-else"><span class="toc-text">对象方式优化if else</span></a></li></ol></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

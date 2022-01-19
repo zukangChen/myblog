@@ -1,0 +1,464 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>nginx跨域 - Smile的个人博客</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="vue">
+  <meta name="description" content="nginx跨域参考文章
+nginx在应用程序的作用1....">
+  <meta name="author" content="Smile">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">nginx跨域</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">nginx跨域</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>五月 27, 2017</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4934</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+        <h1 id="nginx跨域"><a href="#nginx跨域" class="headerlink" title="nginx跨域"></a>nginx跨域</h1><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904144235413512">参考文章</a></p>
+<h2 id="nginx在应用程序的作用"><a href="#nginx在应用程序的作用" class="headerlink" title="nginx在应用程序的作用"></a>nginx在应用程序的作用</h2><h4 id="1-解决跨域"><a href="#1-解决跨域" class="headerlink" title="1.解决跨域"></a>1.解决跨域</h4><h4 id="2-请求过滤"><a href="#2-请求过滤" class="headerlink" title="2.请求过滤"></a>2.请求过滤</h4><h4 id="3-配置-gzip"><a href="#3-配置-gzip" class="headerlink" title="3.配置 gzip"></a>3.配置 gzip</h4><h4 id="4-负载均衡"><a href="#4-负载均衡" class="headerlink" title="4.负载均衡"></a>4.负载均衡</h4><h4 id="5-静态资源服务器"><a href="#5-静态资源服务器" class="headerlink" title="5.静态资源服务器"></a>5.静态资源服务器</h4><p>nginx 是一个高性能的 HTTP 和反向代理服务器，也是一个通用的 TCP/UDP 代理服务器，现在我们前端都会使用webpack进行代理配置，但是用到nginx的地方还是很多的，以前有使用过，感觉代理挺好用的，所以简单介绍一下，加深对后端服务的理解。<br />​</p>
+<h3 id="正向代理与反向代理"><a href="#正向代理与反向代理" class="headerlink" title="正向代理与反向代理"></a>正向代理与反向代理</h3><p><strong>代理</strong> 是在服务器和客户端之间假设的一层服务器，<strong>代理</strong> 将接收客户端的请求并将它转发给服务器，然后将服务端的响应转发给客户端。如下图所示：<br /><br />​</p>
+<p><img   class="lazyload" data-original="/images/nginx%E8%B7%A8%E5%9F%9F/1.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<h4 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h4><p>正向代理，意思是一个位于客户端和原始服务器 (origin server) 之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标 (原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端。</p>
+<p><strong>正向代理</strong> 是为我们服务的，即为客户端服务的，客户端可以根据正向代理访问到它本身无法访问到的服务器资源。</p>
+<p><strong>正向代理</strong> 对我们是透明的，对服务端是非透明的，即服务端并不知道自己收到的是来自代理的访问还是来自真实客户端的访问。</p>
+<h3 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h3><p>反向代理（Reverse Proxy）方式是指以代理服务器来接受 internet 上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给 internet 上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器</p>
+<p><strong>反向代理</strong> 是为服务端服务的，反向代理可以帮助服务器接收来自客户端的请求，帮助服务器做请求转发，负载均衡等。</p>
+<p><strong>反向代理</strong> 对服务端是透明的，对我们是非透明的，即我们并不知道自己访问的是代理服务器，而服务器知道反向代理在为他服务。</p>
+<h4 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h4><p>下面是一个 nginx 配置文件的基本结构：<br /><br />​</p>
+<p><img   class="lazyload" data-original="/images/nginx%E8%B7%A8%E5%9F%9F/2.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs javascript">events &#123; <br><br>&#125;<br><br>http <br>&#123;<br>    server<br>    &#123; <br>        location path<br>        &#123;<br>            ...<br>        &#125;<br>        location path<br>        &#123;<br>            ...<br>        &#125;<br>     &#125;<br><br>    server<br>    &#123;<br>        ...<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>main:nginx 的全局配置，对全局生效。<br />events: 配置影响 nginx 服务器或与用户的网络连接。<br />http：可以嵌套多个 server，配置代理，缓存，日志定义等绝大多数功能和第三方模块的配置。<br />server：配置虚拟主机的相关参数，一个 http 中可以有多个 server。<br />location：配置请求的路由，以及各种页面的处理情况。<br />upstream：配置后端服务器具体地址，负载均衡配置不可或缺的部分。</p>
+<h4 id="内置变量"><a href="#内置变量" class="headerlink" title="内置变量"></a>内置变量</h4><p>下面是<code>nginx</code>一些配置中常用的内置全局变量，你可以在配置的任何位置使用它们。<br /><br />​</p>
+<p><img   class="lazyload" data-original="/images/nginx%E8%B7%A8%E5%9F%9F/3.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<h3 id="解决跨域"><a href="#解决跨域" class="headerlink" title="解决跨域"></a>解决跨域</h3><h4 id="跨域的定义"><a href="#跨域的定义" class="headerlink" title="跨域的定义"></a>跨域的定义</h4><p>同源策略限制了从同一个源加载的文档或脚本如何与来自另一个源的资源进行交互。这是一个用于隔离潜在恶意文件的重要安全机制。通常不允许不同源间的读操作。</p>
+<h4 id="同源的定义"><a href="#同源的定义" class="headerlink" title="同源的定义"></a>同源的定义</h4><p>如果两个页面的协议，端口（如果有指定）和域名都相同，则两个页面具有相同的源<br /></p>
+<p><img   class="lazyload" data-original="/images/nginx%E8%B7%A8%E5%9F%9F/5.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<h3 id="nginx-解决跨域的原理"><a href="#nginx-解决跨域的原理" class="headerlink" title="nginx 解决跨域的原理"></a>nginx 解决跨域的原理</h3><p>例如：<br />     前端 server 的域名为：pro.server.com<br />     后端服务的域名为：xbb.server.com<br />现在我在pro.server.com对xbb.server.com发起请求一定会出现跨域。<br />现在我们只需要启动一个 nginx 服务器，将server_name设置为pro.server.com, 然后设置相应的 location 以拦截前端需要跨域的请求，最后将请求代理回xbb.server.com。如下面的配置：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript">server &#123;<br>        listen       <span class="hljs-number">80</span>;<br>        server_name  fe.server.com;<br>        location / &#123;<br>                proxy_pass dev.server.com;<br>        &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>这样可以完美绕过浏览器的同源策略：pro.server.com访问nginx的xbb.server.com属于同源访问，而nginx对服务端转发的请求不会触发浏览器的同源策略。</p>
+<h3 id="请求过滤"><a href="#请求过滤" class="headerlink" title="请求过滤"></a>请求过滤</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript">error_page <span class="hljs-number">500</span> <span class="hljs-number">501</span> <span class="hljs-number">502</span> <span class="hljs-number">503</span> <span class="hljs-number">504</span> <span class="hljs-number">506</span> /50x.html;<br>    location = /50x.html &#123;<br>        # 将跟路径改编为存放 html 的路径。<br>        root /root/<span class="hljs-keyword">static</span>/html;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>根据 URL 名称过滤，精准匹配 URL，不匹配的 URL 全部重定向到主页。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">location / &#123;<br>    rewrite  ^.*$ /index.html  redirect;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>根据请求类型过滤。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">if</span> ( $request_method !~ ^(GET|POST|HEAD)$ ) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">403</span>;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="配置gzip"><a href="#配置gzip" class="headerlink" title="配置gzip"></a>配置gzip</h3><p><img   class="lazyload" data-original="/images/nginx%E8%B7%A8%E5%9F%9F/6.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>gzip是规定的三种标准 HTTP 压缩格式之一。目前绝大多数的网站都在使用gzip传输html/js/css 等资源文件。<br />对于文本文件，gzip 的效果非常明显，开启后传输所需流量大约会降至 1/4 ~ 1/3。<br />并不是每个浏览器都支持gzip的，如何知道客户端是否支持gzip呢，请求头中Accept-Encoding的来标识对压缩的支持。<br /></p>
+<p><img   class="lazyload" data-original="/images/nginx%E8%B7%A8%E5%9F%9F/7.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>启用gzip同时需要客户端和服务端的支持，如果客户端支持gzip的解析，那么只要服务端能够返回gzip的文件就可以启用gzip了, 我们可以通过nginx的配置来让服务端支持gzip。下面的respone中content-encoding: gzip,指服务端开启了gzip的压缩方式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript">gzip                    on;<br>    gzip_http_version       <span class="hljs-number">1.1</span>;        <br>    gzip_comp_level         <span class="hljs-number">5</span>;<br>    gzip_min_length         <span class="hljs-number">1000</span>;<br>    gzip_types text/csv text/xml text/css text/plain text/javascript application/javascript application/x-javascript application/json application/xml;<br> gzip<br></code></pre></td></tr></table></figure>
+
+
+<h4 id="gzip"><a href="#gzip" class="headerlink" title="gzip"></a>gzip</h4><p>开启或者关闭gzip模块<br />默认值为off<br />可配置为on / off</p>
+<h4 id="gzip-http-version"><a href="#gzip-http-version" class="headerlink" title="gzip_http_version"></a>gzip_http_version</h4><p>启用 gzip 所需的http 最低版本<br />默认值为http/1.1(默认支持tcp持久连接)</p>
+<h4 id="gzip-comp-level"><a href="#gzip-comp-level" class="headerlink" title="gzip_comp_level"></a>gzip_comp_level</h4><p>压缩级别，级别越高压缩率越大，当然压缩时间也就越长（传输快但比较消耗 cpu）<br />默认值为 1<br />压缩级别取值为1-9</p>
+<h4 id="gzip-min-length"><a href="#gzip-min-length" class="headerlink" title="gzip_min_length"></a>gzip_min_length</h4><p>设置允许压缩的页面最小字节数，content-length小于该值的请求将不会被压缩<br />默认值:0<br />当设置的值较小时，压缩后的长度可能比原文件大，建议设置1000以上</p>
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><h4 id="什么是负载均衡"><a href="#什么是负载均衡" class="headerlink" title="什么是负载均衡"></a>什么是负载均衡</h4><p><img   class="lazyload" data-original="/images/nginx%E8%B7%A8%E5%9F%9F/8.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p><br />​</p>
+<p>如上面的图，前面是众多的服务窗口，下面有很多用户需要服务，我们需要一个工具或策略来帮助我们将如此多的用户分配到每个窗口，来达到资源的充分利用以及更少的排队时间。<br />把前面的服务窗口想像成我们的后端服务器，而后面终端的人则是无数个客户端正在发起请求。负载均衡就是用来帮助我们将众多的客户端请求合理的分配到各个服务器，以达到服务端资源的充分利用和更少的请求时间。</p>
+<h3 id="nginx-如何实现负载均衡"><a href="#nginx-如何实现负载均衡" class="headerlink" title="nginx 如何实现负载均衡"></a>nginx 如何实现负载均衡</h3><p>Upstream 指定后端服务器地址列表</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript">upstream balanceServer &#123;<br>    server <span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.33</span>:<span class="hljs-number">12345</span>;<br>    server <span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.33</span>:<span class="hljs-number">12345</span>;<br>    server <span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.33</span>:<span class="hljs-number">12345</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>在 server 中拦截响应请求，并将请求转发到 Upstream 中配置的服务器列表。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript">server &#123;<br>        server_name  pro.server.com;<br>        listen <span class="hljs-number">80</span>;<br>        location /api &#123;<br>            proxy_pass http:<span class="hljs-comment">//balanceServer;</span><br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>上面的配置只是指定了 nginx 需要转发的服务端列表，并没有指定分配策略。</p>
+<h3 id="nginx-实现负载均衡的策略"><a href="#nginx-实现负载均衡的策略" class="headerlink" title="nginx 实现负载均衡的策略"></a>nginx 实现负载均衡的策略</h3><h4 id="轮询策略"><a href="#轮询策略" class="headerlink" title="轮询策略"></a>轮询策略</h4><p>默认情况下采用的策略，将所有客户端请求轮询分配给服务端。这种策略是可以正常工作的，但是如果其中某一台服务器压力太大，出现延迟，会影响所有分配在这台服务器下的用户。</p>
+<p><img   class="lazyload" data-original="/images/nginx%E8%B7%A8%E5%9F%9F/9.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript">upstream balanceServer &#123;<br>    server <span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.33</span>:<span class="hljs-number">12345</span>;<br>    server <span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.33</span>:<span class="hljs-number">12345</span>;<br>    server <span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.33</span>:<span class="hljs-number">12345</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="最小连接数策略"><a href="#最小连接数策略" class="headerlink" title="最小连接数策略"></a><strong>最小连接数策略</strong></h3><p>将请求优先分配给压力较小的服务器，它可以平衡每个队列的长度，并避免向压力大的服务器添加更多的请求。</p>
+<p><img    class="lazyload" data-original="https://cdn.nlark.com/yuque/0/2020/png/319602/1579507377141-5e2a364e-8c46-45bf-aef3-9ff248e9a995.png#height=770&id=jbvfj&name=image.png&originHeight=770&originWidth=1024&originalType=binary&size=481006&status=done&style=none&width=1024" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="   ><span class="image-caption">image.png</span></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript">upstream balanceServer &#123;<br>    least_conn;<br>    server <span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.33</span>:<span class="hljs-number">12345</span>;<br>    server <span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.33</span>:<span class="hljs-number">12345</span>;<br>    server <span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.33</span>:<span class="hljs-number">12345</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h4 id="最快响应时间策略"><a href="#最快响应时间策略" class="headerlink" title="最快响应时间策略"></a>最快响应时间策略</h4><p>依赖于 NGINX Plus，优先分配给响应时间最短的服务器。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript">upstream balanceServer &#123;<br>    fair;<br>    server <span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.33</span>:<span class="hljs-number">12345</span>;<br>    server <span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.33</span>:<span class="hljs-number">12345</span>;<br>    server <span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.33</span>:<span class="hljs-number">12345</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h4 id="客户端-ip-绑定"><a href="#客户端-ip-绑定" class="headerlink" title="客户端 ip 绑定"></a>客户端 ip 绑定</h4><p>来自同一个 ip 的请求永远只分配一台服务器，有效解决了动态网页存在的 session 共享问题。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript">upstream balanceServer &#123;<br>    ip_hash;<br>    server <span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.33</span>:<span class="hljs-number">12345</span>;<br>    server <span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.33</span>:<span class="hljs-number">12345</span>;<br>    server <span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.33</span>:<span class="hljs-number">12345</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="静态资源服务器"><a href="#静态资源服务器" class="headerlink" title="静态资源服务器"></a>静态资源服务器</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript">location ~* \.(png|gif|jpg|jpeg)$ &#123;<br>    root    /root/<span class="hljs-keyword">static</span>/;  <br>    autoindex on;<br>    access_log  off;<br>    expires     10h;# 设置过期时间为 <span class="hljs-number">10</span> 小时          <br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>匹配以png|gif|jpg|jpeg为结尾的请求，并将请求转发到本地路径，root中指定的路径即 nginx 本地路径。同时也可以进行一些缓存的设置。</p>
+<p>我觉得即使现在用不到，了解了上述原理对后端服务会有一个更清晰的认识，利用以后的发展。</p>
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>Smile</li>
+    <li><strong>本文链接：</strong><a href="http://example.com/2017/05/27/nginx%E8%B7%A8%E5%9F%9F/index.html" title="http:&#x2F;&#x2F;example.com&#x2F;2017&#x2F;05&#x2F;27&#x2F;nginx%E8%B7%A8%E5%9F%9F&#x2F;index.html">http:&#x2F;&#x2F;example.com&#x2F;2017&#x2F;05&#x2F;27&#x2F;nginx%E8%B7%A8%E5%9F%9F&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img   class="lazyload" data-original="https://pic.izhaoo.com/alipay.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%A8%E5%9F%9F/" rel="tag">跨域</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2017/05/27/http%E7%9A%84%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/"><i class="iconfont iconleft"></i>http的三次握手</a>
+    <a></a>
+  </nav>
+
+      </section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#nginx%E8%B7%A8%E5%9F%9F"><span class="toc-text">nginx跨域</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx%E5%9C%A8%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">nginx在应用程序的作用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-text">正向代理与反向代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-text">反向代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F"><span class="toc-text">解决跨域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx-%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-text">nginx 解决跨域的原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E8%BF%87%E6%BB%A4"><span class="toc-text">请求过滤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEgzip"><span class="toc-text">配置gzip</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-text">负载均衡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-text">nginx 如何实现负载均衡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx-%E5%AE%9E%E7%8E%B0%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E7%AD%96%E7%95%A5"><span class="toc-text">nginx 实现负载均衡的策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E8%BF%9E%E6%8E%A5%E6%95%B0%E7%AD%96%E7%95%A5"><span class="toc-text">最小连接数策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">静态资源服务器</span></a></li></ol></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

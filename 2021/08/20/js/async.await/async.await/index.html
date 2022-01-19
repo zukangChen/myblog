@@ -1,0 +1,463 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>async/await - Smile的个人博客</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="vue">
+  <meta name="description" content="async/await一、什么是async、await...">
+  <meta name="author" content="Smile">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">async/await</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">async/await</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>八月 20, 2021</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>10101</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+        <h1 id="async-await"><a href="#async-await" class="headerlink" title="async/await"></a>async/await</h1><h2 id="一、什么是async、await"><a href="#一、什么是async、await" class="headerlink" title="一、什么是async、await"></a>一、什么是async、await</h2><p>async函数是es7引入的，它是 Generator函数的语法糖（Generator函数是async函数的实现原理，这一次分享关注使用方法），它是异步操作的又一种实现。  <br />之前分享过Promise（<a target="_blank" rel="noopener" href="https://xbb.yuque.com/xi3va2/zqw8gi/goep64">点击查看promise分享</a>），async相当于是对Promise链式异步回调的优化版本。</p>
+<blockquote>
+<p>总的来看异步操作的进化历程主要是：cb函数-&gt; Promise的链式回调 -&gt; async+Promise</p>
+</blockquote>
+<p>async字面上理解一下就是异步的意思，await就是async wait，是异步等待的意思，wait的是resolve(data)的消息，并把数据data返回。<br />async相当于用同步的写法来写异步方法，不使用.then的方式链式回调</p>
+<h2 id="二、使用方法"><a href="#二、使用方法" class="headerlink" title="二、使用方法"></a>二、使用方法</h2><h4 id="1-async"><a href="#1-async" class="headerlink" title="1. async"></a>1. async</h4><p>async是写在函数前面，用来声明这个函数里面包含异步操作。它返回一个promise对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;我是函数内输出&#x27;</span>)<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>    resolve(<span class="hljs-string">&#x27;输出我&#x27;</span>)<br>  &#125;)<br>&#125;<br>test().then(<span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(data)<br>&#125;)<br><span class="hljs-comment">// 我是函数内输出</span><br><span class="hljs-comment">// 输出我</span><br></code></pre></td></tr></table></figure>
+
+
+<p>当返回值return的不是一个promise对象是，他会把它转化成promise</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;我是函数内输出&#x27;</span>)<br>  <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;输出我&#x27;</span><br>&#125;<br>test().then(<span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(data)<br>&#125;)<br><span class="hljs-comment">// 我是函数内输出</span><br><span class="hljs-comment">// 输出我</span><br><br><span class="hljs-comment">// 上面的async相当于</span><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">&#x27;输出我&#x27;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>当这个函数没有return的时候，他会返回一个undefined</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;我是函数内输出&#x27;</span>)<br>&#125;<br>test().then(<span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(data)<br>&#125;)<br><span class="hljs-comment">// 我是函数内输出</span><br><span class="hljs-comment">// undefined</span><br></code></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>从上面看来，加了async声明的函数，和普通函数的区别就是返回值会被包装成promise对象，可以在then里面取到返回值</p>
+</blockquote>
+<h4 id="2-await"><a href="#2-await" class="headerlink" title="2. await"></a>2. await</h4><p>await需要配合async使用，<strong>只能写在async函数中, 用在普通函数中会报错。</strong><br />await 放置在Promise调用之前，await 强制后面的代码等待，直到Promise对象resolve，不用加then就能获取到resolve的结果，得到resolve的值作为await表达式的运算结果</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> output = <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      resolve(<span class="hljs-string">&#x27;输出我&#x27;</span>)<br>    &#125;, <span class="hljs-number">1000</span>)<br>    &#125;)<br>  <span class="hljs-built_in">console</span>.log(output)<br>&#125;<br>test()<br><span class="hljs-comment">// Promise &#123;&lt;pending&gt;&#125; 这里没有接收test的输出，会打印在控制台这个promise输出（后面不列出来了）</span><br><span class="hljs-comment">// 1s后输出 -&gt; </span><br><span class="hljs-comment">// 输出我</span><br></code></pre></td></tr></table></figure>
+
+
+<p>从这里可以看到”我是函数内输出2”,也是1s后和”输出我”一起输出的，说明函数执行到await这里的时候，它是阻塞的，必须等后面的异步有响应结果的时候，才会往后面执行</p>
+<p>关于执行顺序，看下面</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>)<br>  <span class="hljs-keyword">let</span> output = <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>)<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      resolve(<span class="hljs-number">3</span>)<br>    &#125;, <span class="hljs-number">1000</span>)<br>  &#125;)<br>  <span class="hljs-built_in">console</span>.log(output)<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">4</span>)<br>&#125;<br>test().then(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">5</span>)<br>&#125;)<br><span class="hljs-built_in">console</span>.log(<span class="hljs-number">6</span>)<br><span class="hljs-comment">// 输出顺序</span><br></code></pre></td></tr></table></figure>
+
+
+<p>这里可以看到await会阻塞，但是async函数并没有阻塞</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-number">1</span><br><span class="hljs-number">2</span><br><span class="hljs-number">6</span><br><span class="hljs-number">3</span><br><span class="hljs-number">4</span><br><span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
+
+
+<h4 id="3-async和await结合"><a href="#3-async和await结合" class="headerlink" title="3. async和await结合"></a>3. async和await结合</h4><p>async函数里我们的异步方法，在按照代码顺序同步执行着</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">output1</span> (<span class="hljs-params">num</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      resolve(num+<span class="hljs-number">1</span>)<br>    &#125;, <span class="hljs-number">1000</span>)<br>  &#125;)<br>&#125;<br> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">output2</span> (<span class="hljs-params">num</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      resolve(num+<span class="hljs-number">2</span>)<br>    &#125;, <span class="hljs-number">2000</span>)<br>  &#125;)<br>&#125;<br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> num = <span class="hljs-number">0</span><br>  <span class="hljs-built_in">console</span>.log(num)<br>  <span class="hljs-keyword">let</span> num1 = <span class="hljs-keyword">await</span> output1(num)<br>  <span class="hljs-built_in">console</span>.log(num1)<br>  <span class="hljs-keyword">let</span> num2 = <span class="hljs-keyword">await</span> output2(num1)<br>  <span class="hljs-built_in">console</span>.log(num2)<br>&#125;<br>test()<br><span class="hljs-comment">// 0 </span><br><span class="hljs-comment">// 1s后输出-&gt; 1 (0+1)</span><br><span class="hljs-comment">// 2s后输出 -&gt; 3 (1+2)</span><br></code></pre></td></tr></table></figure>
+
+
+<p>当后面await后面的跟的不是promise的时候，就不等待, 相当于同步</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;我是函数内输出&#x27;</span>)<br>  <span class="hljs-keyword">let</span> output = <span class="hljs-keyword">await</span> <span class="hljs-string">&#x27;输出我&#x27;</span> <span class="hljs-comment">// 就直接相当于 let output = &#x27;输出我&#x27;</span><br>  <span class="hljs-built_in">console</span>.log(output)<br>&#125;<br>test()<br><span class="hljs-comment">// 我是函数内输出</span><br><span class="hljs-comment">// 直接输出 -&gt; 输出我</span><br></code></pre></td></tr></table></figure>
+
+
+<h4 id="4-错误处理"><a href="#4-错误处理" class="headerlink" title="4. 错误处理"></a>4. 错误处理</h4><p>当async函数中出现错误时，会中断后面的执行，无论是Promise reject的数据还是逻辑报错，都会中断。所以需要对错误做处理<br />async的函数里面报错，相当于返回的promise被reject了，所以错误能通过函数的catch捕获到</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;我是函数内输出&#x27;</span>)<br>  <span class="hljs-keyword">let</span> output = <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;出错了&#x27;</span>) <span class="hljs-comment">// 模拟报错</span><br>      resolve(<span class="hljs-string">&#x27;输出我&#x27;</span>)<br>  &#125;)<br>  <span class="hljs-built_in">console</span>.log(output)<br>  <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;返回了&#x27;</span><br>&#125;<br>test().then(<span class="hljs-function">(<span class="hljs-params">data</span>)=&gt;</span>&#123;<br>  <span class="hljs-built_in">console</span>.log(data)<br>&#125;).catch(<span class="hljs-function">(<span class="hljs-params">err</span>)=&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(err, <span class="hljs-string">&#x27;进入catch了&#x27;</span>)<br>&#125;)<br><span class="hljs-comment">// 我是函数内输出</span><br><span class="hljs-comment">// Error: 出错了    &#x27;进入catch了&#x27;</span><br></code></pre></td></tr></table></figure>
+
+
+<p>也可以使用try catch 处理错误</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;我是函数内输出&#x27;</span>)<br>    <span class="hljs-keyword">let</span> output = <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;出错了&#x27;</span>) <span class="hljs-comment">// 模拟报错</span><br>        resolve(<span class="hljs-string">&#x27;输出我&#x27;</span>)<br>    &#125;)<br>    <span class="hljs-built_in">console</span>.log(output)<br>  &#125; <span class="hljs-keyword">catch</span> (err) &#123;<br>    <span class="hljs-built_in">console</span>.log(err, <span class="hljs-string">&#x27;进入catch了&#x27;</span>)<br>  &#125;<br>&#125;<br>test()<br><span class="hljs-comment">// 我是函数内输出</span><br><span class="hljs-comment">// Uncaught Error: 出错了  &#x27;进入catch了&#x27;</span><br></code></pre></td></tr></table></figure>
+
+
+<p>从上面可以看到，出错后都不会走后面的代码。</p>
+<p>如果想要继续往下执行，对await异步里的错误做完处理就能继续执行后面的代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;我是函数内输出&#x27;</span>)<br>  <span class="hljs-keyword">let</span> output = <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;出错了&#x27;</span>) <span class="hljs-comment">// 模拟报错</span><br>      reject(<span class="hljs-number">234</span>)<br>  &#125;).catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;<span class="hljs-built_in">console</span>.log(err, <span class="hljs-string">&#x27;await的报错catch&#x27;</span>)&#125;)<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;报错后面的输出&#x27;</span>)<br>&#125;<br>test()<br><span class="hljs-comment">// 我是函数内输出</span><br><span class="hljs-comment">// VM9420:6 Error: 出错了</span><br>    at &lt;anonymous&gt;:<span class="hljs-number">4</span>:<span class="hljs-number">13</span><br>    at <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span> (&lt;anonymous&gt;)<br>    at test (&lt;anonymous&gt;:<span class="hljs-number">3</span>:<span class="hljs-number">21</span>)<br>    at &lt;anonymous&gt;:<span class="hljs-number">9</span>:<span class="hljs-number">1</span> <span class="hljs-string">&quot;await的报错catch&quot;</span><br><span class="hljs-comment">// 报错后面的输出</span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="三、注意事项汇总"><a href="#三、注意事项汇总" class="headerlink" title="三、注意事项汇总"></a>三、注意事项汇总</h2><h4 id="1-await只能在async函数内部使用，不能放在普通函数里面，否则会报错。"><a href="#1-await只能在async函数内部使用，不能放在普通函数里面，否则会报错。" class="headerlink" title="1.  await只能在async函数内部使用，不能放在普通函数里面，否则会报错。"></a>1.  await只能在async函数内部使用，不能放在普通函数里面，否则会报错。</h4><h4 id="2-await关键字后面跟Promise对象，会等待后面的resolve（data）之后，才会向下执行，这里是阻塞的。"><a href="#2-await关键字后面跟Promise对象，会等待后面的resolve（data）之后，才会向下执行，这里是阻塞的。" class="headerlink" title="2. await关键字后面跟Promise对象，会等待后面的resolve（data）之后，才会向下执行，这里是阻塞的。"></a>2. await关键字后面跟Promise对象，会等待后面的resolve（data）之后，才会向下执行，这里是阻塞的。</h4><h4 id="3-await命令后面的Promise对象，运行结果可能是rejected，所以要对它的错误做处理。"><a href="#3-await命令后面的Promise对象，运行结果可能是rejected，所以要对它的错误做处理。" class="headerlink" title="3. await命令后面的Promise对象，运行结果可能是rejected，所以要对它的错误做处理。"></a>3. await命令后面的Promise对象，运行结果可能是rejected，所以要对它的错误做处理。</h4><h4 id="4-多个await命令后面的异步操作，如果不存在继发关系，最好让它们同时触发，否则是串联的等待。"><a href="#4-多个await命令后面的异步操作，如果不存在继发关系，最好让它们同时触发，否则是串联的等待。" class="headerlink" title="4. 多个await命令后面的异步操作，如果不存在继发关系，最好让它们同时触发，否则是串联的等待。"></a>4. 多个await命令后面的异步操作，如果不存在继发关系，最好让它们同时触发，否则是串联的等待。</h4><h2 id="四、优点"><a href="#四、优点" class="headerlink" title="四、优点"></a>四、优点</h2><h4 id="1-方便级联调用，同步代码和异步代码可以一起写，看着逻辑清晰"><a href="#1-方便级联调用，同步代码和异步代码可以一起写，看着逻辑清晰" class="headerlink" title="1. 方便级联调用，同步代码和异步代码可以一起写，看着逻辑清晰"></a>1. 方便级联调用，同步代码和异步代码可以一起写，看着逻辑清晰</h4><p>同步代码该怎么写继续怎么写，异步过程需要包装成一个Promise对象放在await关键字后面，读下来就像是同步的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">takeLongTime</span>(<span class="hljs-params">n</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> &#123;<br>        <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> resolve(n + <span class="hljs-number">200</span>), n);<br>    &#125;);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">step1</span>(<span class="hljs-params">n</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`step1 with <span class="hljs-subst">$&#123;n&#125;</span>`</span>);<br>    <span class="hljs-keyword">return</span> takeLongTime(n);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">step2</span>(<span class="hljs-params">n</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`step2 with <span class="hljs-subst">$&#123;n&#125;</span>`</span>);<br>    <span class="hljs-keyword">return</span> takeLongTime(n);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">step3</span>(<span class="hljs-params">n</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`step3 with <span class="hljs-subst">$&#123;n&#125;</span>`</span>);<br>    <span class="hljs-keyword">return</span> takeLongTime(n);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// promise链式写法</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doIt</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.time(<span class="hljs-string">&quot;doIt&quot;</span>);<br>    <span class="hljs-keyword">const</span> time1 = <span class="hljs-number">300</span>;<br>    step1(time1)<br>        .then(<span class="hljs-function"><span class="hljs-params">time2</span> =&gt;</span> step2(time2))<br>        .then(<span class="hljs-function"><span class="hljs-params">time3</span> =&gt;</span> step3(time3))<br>        .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> &#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`result is <span class="hljs-subst">$&#123;result&#125;</span>`</span>);<br>        &#125;);<br>&#125;<br>doIt();<br><br><span class="hljs-comment">// async函数写法</span><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doIt</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.time(<span class="hljs-string">&quot;doIt&quot;</span>);<br>    <span class="hljs-keyword">const</span> time1 = <span class="hljs-number">300</span>;<br>    <span class="hljs-keyword">const</span> time2 = <span class="hljs-keyword">await</span> step1(time1);<br>    <span class="hljs-keyword">const</span> time3 = <span class="hljs-keyword">await</span> step2(time2);<br>    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> step3(time3);<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`result is <span class="hljs-subst">$&#123;result&#125;</span>`</span>);<br>&#125;<br>doIt();<br><br><span class="hljs-comment">// step1 with 300</span><br><span class="hljs-comment">// step2 with 500</span><br><span class="hljs-comment">// step3 with 700</span><br><span class="hljs-comment">// result is 900</span><br></code></pre></td></tr></table></figure>
+
+
+<p>下面的例子更加明显，需求改成每一个步骤都需要之前每个步骤的结果</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">step1</span>(<span class="hljs-params">n</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`step1 with <span class="hljs-subst">$&#123;n&#125;</span>`</span>);<br>    <span class="hljs-keyword">return</span> takeLongTime(n);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">step2</span>(<span class="hljs-params">m, n</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`step2 with <span class="hljs-subst">$&#123;m&#125;</span> and <span class="hljs-subst">$&#123;n&#125;</span>`</span>);<br>    <span class="hljs-keyword">return</span> takeLongTime(m + n);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">step3</span>(<span class="hljs-params">k, m, n</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`step3 with <span class="hljs-subst">$&#123;k&#125;</span>, <span class="hljs-subst">$&#123;m&#125;</span> and <span class="hljs-subst">$&#123;n&#125;</span>`</span>);<br>    <span class="hljs-keyword">return</span> takeLongTime(k + m + n);<br>&#125;<br><span class="hljs-comment">// Promise方式调用</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doIt</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.time(<span class="hljs-string">&quot;doIt&quot;</span>);<br>    <span class="hljs-keyword">const</span> time1 = <span class="hljs-number">300</span>;<br>    step1(time1)<br>        .then(<span class="hljs-function"><span class="hljs-params">time2</span> =&gt;</span> &#123;<br>            <span class="hljs-keyword">return</span> step2(time1, time2)<br>                .then(<span class="hljs-function"><span class="hljs-params">time3</span> =&gt;</span> [time1, time2, time3]);<br>        &#125;)<br>        .then(<span class="hljs-function"><span class="hljs-params">times</span> =&gt;</span> &#123;<br>            <span class="hljs-keyword">const</span> [time1, time2, time3] = times;<br>            <span class="hljs-keyword">return</span> step3(time1, time2, time3);<br>        &#125;)<br>        .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> &#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`result is <span class="hljs-subst">$&#123;result&#125;</span>`</span>);<br>            <span class="hljs-built_in">console</span>.timeEnd(<span class="hljs-string">&quot;doIt&quot;</span>);<br>        &#125;);<br>&#125;<br><br><span class="hljs-comment">// async/await方式调用</span><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doIt</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.time(<span class="hljs-string">&quot;doIt&quot;</span>);<br>    <span class="hljs-keyword">const</span> time1 = <span class="hljs-number">300</span>;<br>    <span class="hljs-keyword">const</span> time2 = <span class="hljs-keyword">await</span> step1(time1);<br>    <span class="hljs-keyword">const</span> time3 = <span class="hljs-keyword">await</span> step2(time1, time2);<br>    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> step3(time1, time2, time3);<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`result is <span class="hljs-subst">$&#123;result&#125;</span>`</span>);<br>    <span class="hljs-built_in">console</span>.timeEnd(<span class="hljs-string">&quot;doIt&quot;</span>);<br>&#125;<br><span class="hljs-comment">// step1 with 300</span><br><span class="hljs-comment">// step2 with 800 = 300 + 500</span><br><span class="hljs-comment">// step3 with 1800 = 300 + 500 + 1000</span><br><span class="hljs-comment">// result is 2000</span><br><span class="hljs-comment">// doIt: 2907.387ms</span><br></code></pre></td></tr></table></figure>
+
+
+<h4 id="2-更方便的参数传递"><a href="#2-更方便的参数传递" class="headerlink" title="2. 更方便的参数传递"></a>2. 更方便的参数传递</h4><p>Promise的then函数只能传递一个参数，虽然可以通过包装成对象来传递多个参数，但是会导致传递冗余信息，频繁的解析又重新组合参数，比较麻烦；async/await没有这个限制，可以当做普通的局部变量来处理，用let或者const定义的块级变量想怎么用就怎么用，想定义几个就定义几个，完全没有限制，也没有冗余工作</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// promise链式写法</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doIt</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.time(<span class="hljs-string">&quot;doIt&quot;</span>);<br>    <span class="hljs-keyword">const</span> time1 = <span class="hljs-number">300</span>;<br>    step1(time1)<br>        .then(<span class="hljs-function">(<span class="hljs-params">time2</span>) =&gt;</span>&#123;<br>          <span class="hljs-keyword">let</span> output = <span class="hljs-number">1</span><br>          <span class="hljs-keyword">return</span> step2(time2)<br>      &#125;)<br>        .then(<span class="hljs-function">(<span class="hljs-params">time3</span>) =&gt;</span> &#123;<br>          output += <span class="hljs-number">1</span><br>          <span class="hljs-built_in">console</span>.log(output)<br>          <span class="hljs-keyword">return</span> step3(time3)<br>      &#125;)<br>        .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> &#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`result is <span class="hljs-subst">$&#123;result&#125;</span>`</span>);<br>        &#125;);<br>&#125;<br>doIt();<br><br><span class="hljs-comment">// async函数写法</span><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doIt</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.time(<span class="hljs-string">&quot;doIt&quot;</span>);<br>    <span class="hljs-keyword">const</span> time1 = <span class="hljs-number">300</span>;<br>    <span class="hljs-keyword">const</span> time2 = <span class="hljs-keyword">await</span> step1(time1);<br>    <span class="hljs-keyword">let</span> output = <span class="hljs-number">1</span><br>    <span class="hljs-keyword">const</span> time3 = <span class="hljs-keyword">await</span> step2(time2);<br>    output += <span class="hljs-number">1</span><br>    <span class="hljs-built_in">console</span>.log(output)<br>    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> step3(time3);<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`result is <span class="hljs-subst">$&#123;result&#125;</span>`</span>);<br>&#125;<br>doIt();<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="五、常见场景"><a href="#五、常见场景" class="headerlink" title="五、常见场景"></a>五、常见场景</h2><h4 id="1-两个接口请求完，执行某操作"><a href="#1-两个接口请求完，执行某操作" class="headerlink" title="1.两个接口请求完，执行某操作"></a>1.两个接口请求完，执行某操作</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 两个接口相关联，请求完1才能请求2</span><br><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">exc1</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;exc1 start:&#x27;</span>,<span class="hljs-built_in">Date</span>.now())<br>    <span class="hljs-keyword">let</span> res1 = <span class="hljs-keyword">await</span> fetch1(url);<br>    <span class="hljs-keyword">let</span> res2 = <span class="hljs-keyword">await</span> fetch2(res1); <span class="hljs-comment">// 依赖1的接口返回新的url</span><br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;exc1 end:&#x27;</span>, <span class="hljs-built_in">Date</span>.now())<br>&#125;<br><br><span class="hljs-comment">// 并发请求， 两个接口不关联，两个请求完的时候之后后面的逻辑</span><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">exc2</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;exc2 start:&#x27;</span>,<span class="hljs-built_in">Date</span>.now())<br>    <span class="hljs-keyword">let</span> [res1, res2] = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.all([fetch1(url), fetch2(url)])<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;exc2 end:&#x27;</span>, <span class="hljs-built_in">Date</span>.now())<br>&#125;<br><br>exc1();<br><br>exc2();<br></code></pre></td></tr></table></figure>
+
+
+<h4 id="2-根据是否超时，做处理"><a href="#2-根据是否超时，做处理" class="headerlink" title="2.根据是否超时，做处理"></a>2.根据是否超时，做处理</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">timeOut</span> (<span class="hljs-params">delay</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>        <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>          resolve(<span class="hljs-literal">false</span>)<br>        &#125;, delay)<br>    &#125;)<br>&#125;<br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">exc1</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> flat = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.race([fetch(url), timeOut(delay)])<br>    <span class="hljs-comment">// 根据是否超过规定的时间，做不通的处理</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+<h4 id="3-一个接口请求失败的话，再尝试请求一定次数"><a href="#3-一个接口请求失败的话，再尝试请求一定次数" class="headerlink" title="3. 一个接口请求失败的话，再尝试请求一定次数"></a>3. 一个接口请求失败的话，再尝试请求一定次数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getImg</span> (<span class="hljs-params">url</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      resolve(<span class="hljs-literal">false</span>)<br>    &#125;, <span class="hljs-number">3000</span>)<br>  &#125;)<br>&#125;<br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn3</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> times = <span class="hljs-number">3</span><br>  <span class="hljs-keyword">let</span> url = <span class="hljs-string">&#x27;xxx&#x27;</span><br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; times; i++) &#123;<br>    <span class="hljs-keyword">let</span> img = <span class="hljs-keyword">await</span> getImg(url).catch(<span class="hljs-function">() =&gt;</span> &#123;&#125;)<br>    <span class="hljs-built_in">console</span>.log(img)<br>    <span class="hljs-keyword">if</span> (img) &#123;<br>      <span class="hljs-keyword">break</span>;<br>    &#125;<br>  &#125;<br>&#125;<br>fn3()<br></code></pre></td></tr></table></figure>
+
+
+<p>其它场景欢迎补充….</p>
+<blockquote>
+<p>关于Generator函数，大家可以去看下阮一峰的es6</p>
+</blockquote>
+<p>async/await</p>
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>Smile</li>
+    <li><strong>本文链接：</strong><a href="http://example.com/2021/08/20/js/async.await/async.await/index.html" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;20&#x2F;js&#x2F;async.await&#x2F;async.await&#x2F;index.html">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;20&#x2F;js&#x2F;async.await&#x2F;async.await&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img   class="lazyload" data-original="https://pic.izhaoo.com/alipay.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/async-await/" rel="tag">async await</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2021/12/12/js/%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E5%8F%98%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84/%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E5%8F%98%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84/"><i class="iconfont iconleft"></i>一维数组变二维数组</a>
+    <a href="/2021/02/19/js/Es5%E3%80%81ES6%E5%BF%85%E4%BC%9A%E5%BF%85%E7%9F%A5/Es5%E3%80%81ES6%E5%BF%85%E4%BC%9A%E5%BF%85%E7%9F%A5/">Es5、ES6必会必知<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#async-await"><span class="toc-text">async&#x2F;await</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFasync%E3%80%81await"><span class="toc-text">一、什么是async、await</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-text">二、使用方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%E6%B1%87%E6%80%BB"><span class="toc-text">三、注意事项汇总</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%BC%98%E7%82%B9"><span class="toc-text">四、优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%B8%B8%E8%A7%81%E5%9C%BA%E6%99%AF"><span class="toc-text">五、常见场景</span></a></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

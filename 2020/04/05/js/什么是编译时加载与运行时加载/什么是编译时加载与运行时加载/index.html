@@ -1,0 +1,423 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>什么是编译时加载与运行时加载 - Smile的个人博客</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="vue">
+  <meta name="description" content="什么是编译时加载与运行时加载前言最近在整理模块化的知识...">
+  <meta name="author" content="Smile">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">什么是编译时加载与运行时加载</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">什么是编译时加载与运行时加载</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>四月 05, 2020</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>3946</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+        <h1 id="什么是编译时加载与运行时加载"><a href="#什么是编译时加载与运行时加载" class="headerlink" title="什么是编译时加载与运行时加载"></a>什么是编译时加载与运行时加载</h1><p>前言<br>最近在整理模块化的知识点时，阮一峰老师es6 中Modul篇的记录中有以下这段话：</p>
+<p>ES6 模块的设计思想是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。CommonJS 和 AMD 模块，都只能在运行时确定这些东西。比如，CommonJS 模块就是对象，输入时必须查找对象属性。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">// CommonJs模块</span><br><span class="hljs-keyword">let</span> &#123;stat, exists, readfile&#125; = require(&#x27;fs&#x27;)<br><br><span class="hljs-comment">// 等同于</span><br><span class="hljs-keyword">let</span> _fs = require(&#x27;fs&#x27;)<br><span class="hljs-keyword">let</span> stat = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_fs</span>.</span></span>stat;<br><span class="hljs-keyword">let</span> exists = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_fs</span>.</span></span>exists;<br><span class="hljs-keyword">let</span> readfile = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_fs</span>.</span></span>readfile;<br></code></pre></td></tr></table></figure>
+
+
+<p>上面代码的实质是整体加载fs模块（即加载fs的所有方法），生成一个对象（_fs），然后再从这个对象上面读取 3 个方法。这种加载称为“运行时加载”，因为只有运行时才能得到这个对象，导致完全没办法在编译时做“静态优化”。</p>
+<p>ES6 模块不是对象，而是通过export命令显式指定输出的代码，再通过import命令输入。</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-comment">// ES6模块</span><br>import &#123;stat, <span class="hljs-keyword">exists</span>, readfile&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span><br></code></pre></td></tr></table></figure>
+
+
+<p>上面代码的实质是从fs模块加载 3 个方法，其他方法不加载。这种加载称为“编译时加载”或者静态加载，即 ES6 可以在编译时就完成模块加载，效率要比 CommonJS 模块的加载方式高。当然，这也导致了没法引用 ES6 模块本身，因为它不是对象。</p>
+<p>由于 ES6 模块是编译时加载，使得静态分析成为可能。有了它，就能进一步拓宽 JavaScript 的语法，比如引入宏（macro）和类型检验（type system）这些只能靠静态分析实现的功能。</p>
+<p>这段话我没有理解，上网搜索后也没有相关答案。找了一些资源后将个人理解记录一下。</p>
+<p>什么是编译时、运行时<br>编译时<br>编译：将源代码翻译成机器能识别的语言（二进制）。计算机还是那个计算机，他至今还是只能看懂01,但随着时间的推移和人类的进步，逐渐出现了很多高级语言，高级语言之所以高级就在于我们可以用一种简单的方式比如if elese 来实现我们的代码逻辑，但最终在执行的时候计算机还是没办法识别的，这个时候就需要一个处理过程”编译”，将大家平时写的if else 翻译成机器可以看懂的语言。那负责编译的这部分，我们一般称之为 编译器。</p>
+<p>那编译时就会做一些简单的翻译工作,比如检查你有没有粗心写错啥关键字了啊。会进行词法分析,语法分析之类的。就像个老师检查学生的作文中有没有错别字和病句一样.如果发现啥错误编译器就告诉你。开始编译时,如果有errors或者warning信息,都是编译器检查出来的。所谓这时的错误就叫编译时错误,这个过程中做的类型检查也就叫编译时类型检查,或静态类型检查(所谓静态嘛就是没把真把代码放内存中运行起来,而只是把代码当作文本来扫描下)。</p>
+<p>运行时<br>所谓运行时就是代码跑起来了。被装载到内存中去了。(你的代码保存在磁盘上没装入内存之前是个文件。只有跑到内存中才变成活的)。而运行时类型检查就与前面讲的编译时类型检查(或者静态类型检查)不一样。不是简单的扫描代码.而是在内存中做些操作,做些判断以确定我们的程序是否存在错误。</p>
+<p>解释型语言和编译型语言<br>编译型语言：程序在执行之前需要一个专门的编译过程，把程序编译成为机器语言的文件（即exe文件），运行时不需要重新编译，直接用编译后的文件（exe文件）就行了。<br>优点：执行效率高<br>缺点：跨平台性差<br>解释型语言：程序不需要编译，程序在运行的过程中才用解释器编译成机器语言，边编译边执行（没有exe文件）。<br>优点：跨平台性好、每个平台采用自有的编译机制<br>缺点：执行效率低、因为边编译边执行<br>其中程序无需编译，不是说真的不需要编译了，直接执行脚本字符串。而是说不需要在运行之前先编译程序成为exe文件，而是在运行的过程中边运行边执行。<br>那么我们平时都说js是解释型语言，个人理解是因为他没有生成这种所谓的可执行文件，但其实它的执行中还是掺杂了。</p>
+<p><img   class="lazyload" data-original="image/image.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<h1 id="我的理解"><a href="#我的理解" class="headerlink" title="我的理解"></a>我的理解</h1><p>commonjs或AMD，都是运行时加载，在编译阶段只判断语法层面对不对，如果引入了不存在的变量等只有在执行时才会发现。<br>ES6 可以因为是一边编译一边执行，在编译阶段会检查引入变量是否存在、引入模块是否存在等，问题更早暴露。</p>
+<h2 id="require-exports"><a href="#require-exports" class="headerlink" title="require/exports"></a>require/exports</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// module.js</span><br>    <span class="hljs-keyword">let</span> counts = <span class="hljs-number">1</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sayHello</span>(<span class="hljs-params"></span>) </span>&#123;<br>        alert(<span class="hljs-string">`&quot;hello , <span class="hljs-subst">$&#123;counts&#125;</span>`</span>)<br>    &#125;<br><br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    counts += <span class="hljs-number">2</span><br>    &#125;, <span class="hljs-number">3000</span>);<br><br>    <span class="hljs-built_in">module</span>.exports = &#123;counts, sayHello&#125;;<br><br>    index.js<br>    <span class="hljs-keyword">const</span> &#123; counts, sayHello &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./module.js&#x27;</span>);<br>    <br>    <span class="hljs-comment">// 注意此处的代码结果</span><br>    <span class="hljs-keyword">const</span> click = <span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;counts: &#x27;</span>, counts) <span class="hljs-comment">// 每次点击事件，打印的 counts 始终为 1</span><br>        sayHello(); <span class="hljs-comment">// 1  ==》 3秒钟后 =&gt;&gt; 3</span><br>    &#125;<br><br>    ...<br>    &lt;!-- 此处counts始终是 <span class="hljs-number">1</span> --&gt;<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>import &#123;counts&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span> <br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;primary&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;click&#125;</span>&gt;</span>require <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span></span><br><br></code></pre></td></tr></table></figure>
+
+
+<p>结果分析： 在源文件中更改变量的值，通过 <code>require</code> 引入 <code>counts</code> 的变量，拿到的值始终是初始化的值</p>
+<h2 id="import-export"><a href="#import-export" class="headerlink" title="import/export"></a>import/export</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// module.js</span><br>    <span class="hljs-keyword">let</span> counts = <span class="hljs-number">1</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sayHello</span>(<span class="hljs-params"></span>) </span>&#123;<br>        alert(<span class="hljs-string">`&quot;hello , <span class="hljs-subst">$&#123;counts&#125;</span>`</span>)<br>    &#125;<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        counts += <span class="hljs-number">2</span><br>    &#125;, <span class="hljs-number">3000</span>);<br>    <span class="hljs-keyword">export</span> &#123; counts, sayHello &#125;;<br><br>    <span class="hljs-comment">// index.js</span><br>    <span class="hljs-keyword">import</span> &#123; counts, sayHello &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./module.js&#x27;</span>;<br>    <br>    <span class="hljs-comment">// 注意此处的代码结果</span><br>    <span class="hljs-keyword">const</span> click = <span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;counts: &#x27;</span>, counts) <span class="hljs-comment">// 初始为 1， ==》 3秒钟后 =&gt;&gt; 3</span><br>        sayHello(); <span class="hljs-comment">// 初始为 1， ==》 3秒钟后 =&gt;&gt; 3</span><br>    &#125;<br><br>    ...<br>    &lt;!-- 此counts处始终是 <span class="hljs-number">1</span> --&gt;<br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>import &#123;counts&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span> <br>    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;primary&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;click&#125;</span>&gt;</span>require <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span></span><br><br></code></pre></td></tr></table></figure>
+
+
+<p>结果分析：通过 <code>import</code> 引入 <code>counts</code> 的变量，在源文件中修改变量的值后，引入拿到的变量值也会改变。</p>
+<h2 id="require和import的区别"><a href="#require和import的区别" class="headerlink" title="require和import的区别"></a>require和import的区别</h2><ol>
+<li>导入<code>require</code> 导出 <code>exports/module.exports</code> 是 <code>CommonJS</code> 的标准，通常适用范围如 <code>Node.js</code></li>
+<li><code>import/export</code> 是 <code>ES6</code> 的标准，通常适用范围如 <code>React</code></li>
+<li><code>require</code> 是<strong>赋值过程</strong>并且是<strong>运行时才执行</strong>，也就是_同步加载_</li>
+<li><code>require</code> 可以理解为一个全局方法，因为它是一个方法所以意味着可以在任何地方执行。</li>
+<li><code>import</code> 是<strong>解构过程</strong>并且是<strong>编译时执行</strong>，理解为_异步加载_</li>
+<li><code>import</code> 会提升到整个模块的头部，具有置顶性，但是建议写在文件的顶部。</li>
+</ol>
+<blockquote>
+<p><code>commonjs</code> 输出的，是一个值的拷贝，而<code>es6</code>输出的是值的引用；</p>
+</blockquote>
+<blockquote>
+<p><code>commonjs</code> 是运行时加载，<code>es6</code>是编译时输出接口；</p>
+</blockquote>
+<h2 id="require和import的性能"><a href="#require和import的性能" class="headerlink" title="require和import的性能"></a>require和import的性能</h2><p><code>require</code> 的性能相对于 <code>import</code> 稍低。</p>
+<p>因为 <code>require</code> 是在运行时才引入模块并且还赋值给某个变量，而 <code>import</code> 只需要依据 <code>import</code> 中的接口在编译时引入指定模块所以性能稍高</p>
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>Smile</li>
+    <li><strong>本文链接：</strong><a href="http://example.com/2020/04/05/js/%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%96%E8%AF%91%E6%97%B6%E5%8A%A0%E8%BD%BD%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8A%A0%E8%BD%BD/%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%96%E8%AF%91%E6%97%B6%E5%8A%A0%E8%BD%BD%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8A%A0%E8%BD%BD/index.html" title="http:&#x2F;&#x2F;example.com&#x2F;2020&#x2F;04&#x2F;05&#x2F;js&#x2F;%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%96%E8%AF%91%E6%97%B6%E5%8A%A0%E8%BD%BD%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8A%A0%E8%BD%BD&#x2F;%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%96%E8%AF%91%E6%97%B6%E5%8A%A0%E8%BD%BD%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8A%A0%E8%BD%BD&#x2F;index.html">http:&#x2F;&#x2F;example.com&#x2F;2020&#x2F;04&#x2F;05&#x2F;js&#x2F;%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%96%E8%AF%91%E6%97%B6%E5%8A%A0%E8%BD%BD%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8A%A0%E8%BD%BD&#x2F;%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%96%E8%AF%91%E6%97%B6%E5%8A%A0%E8%BD%BD%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8A%A0%E8%BD%BD&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img   class="lazyload" data-original="https://pic.izhaoo.com/alipay.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2021/02/19/js/Es5%E3%80%81ES6%E5%BF%85%E4%BC%9A%E5%BF%85%E7%9F%A5/Es5%E3%80%81ES6%E5%BF%85%E4%BC%9A%E5%BF%85%E7%9F%A5/"><i class="iconfont iconleft"></i>Es5、ES6必会必知</a>
+    <a href="/2019/07/27/js/%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81/%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81/">防抖节流<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%96%E8%AF%91%E6%97%B6%E5%8A%A0%E8%BD%BD%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8A%A0%E8%BD%BD"><span class="toc-text">什么是编译时加载与运行时加载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%88%91%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-text">我的理解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#require-exports"><span class="toc-text">require&#x2F;exports</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#import-export"><span class="toc-text">import&#x2F;export</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#require%E5%92%8Cimport%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">require和import的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#require%E5%92%8Cimport%E7%9A%84%E6%80%A7%E8%83%BD"><span class="toc-text">require和import的性能</span></a></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

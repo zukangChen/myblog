@@ -1,0 +1,457 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>防抖节流 - Smile的个人博客</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="vue">
+  <meta name="description" content="防抖节流12345678910111213141516...">
+  <meta name="author" content="Smile">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">防抖节流</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">防抖节流</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>七月 27, 2019</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>8310</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+        <h1 id="防抖节流"><a href="#防抖节流" class="headerlink" title="防抖节流"></a>防抖节流</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs 纯文本">// 防抖<br>let timer<br>function debounce (hander, afterTime = 500) &#123;<br>  if (timer) clearTimeout(timer)<br>  let that = this<br>  return function () &#123;<br>    timer = setTimeout(() =&gt; &#123;<br>      hander.call(that)<br>    &#125;, afterTime)<br>  &#125;<br>&#125; <br><br>// 节流<br>let first = true<br>function throtter (fn, dely) &#123;<br>  let that = this<br>  let now = new Date()<br>  let pre = 0<br>  if (now - pre &gt; dely || first) &#123;<br>    pre = now<br>    first = false<br>    fn.call(that)<br>  &#125;<br>&#125; <br></code></pre></td></tr></table></figure>
+
+
+<h4 id="1-节流是在绝对时间差内仅让第一次调用生效。防抖是在相对时间差内仅让最后一次调用生效"><a href="#1-节流是在绝对时间差内仅让第一次调用生效。防抖是在相对时间差内仅让最后一次调用生效" class="headerlink" title="1. 节流是在绝对时间差内仅让第一次调用生效。防抖是在相对时间差内仅让最后一次调用生效"></a>1. 节流是在绝对时间差内仅让第一次调用生效。防抖是在相对时间差内仅让最后一次调用生效</h4><h4 id="2-防抖的含义就是让某个时间期限（如1000毫秒）内，事件处理函数只执行一次。-节流：在函数执行一次之后，该函数在指定的时间期限内不再工作，直至过了这段时间才重新生效"><a href="#2-防抖的含义就是让某个时间期限（如1000毫秒）内，事件处理函数只执行一次。-节流：在函数执行一次之后，该函数在指定的时间期限内不再工作，直至过了这段时间才重新生效" class="headerlink" title="2. 防抖的含义就是让某个时间期限（如1000毫秒）内，事件处理函数只执行一次。 节流：在函数执行一次之后，该函数在指定的时间期限内不再工作，直至过了这段时间才重新生效"></a>2. 防抖的含义就是让某个时间期限（如1000毫秒）内，事件处理函数只执行一次。 节流：在函数执行一次之后，该函数在指定的时间期限内不再工作，直至过了这段时间才重新生效</h4><p>下面是防抖函数的一个简单例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-comment">// index.vue</span><br>&lt;template&gt;<br>  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;debounce&quot;</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>smile<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;beforedebounce&quot;</span>&gt;</span>防抖<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">    <span class="hljs-comment">&lt;!-- &lt;button @click=&quot;throttle&quot;&gt;节流&lt;/button&gt; --&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&lt;/template&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="javascript"><span class="xml"><span class="hljs-comment">// 引入防抖函数，我们也可以把这个防抖函数的方法挂在到全局，让它成为一个全局方法</span></span></span><br><span class="javascript"><span class="xml"><span class="hljs-comment">// import * as utils from &#x27;@/views/yang/debounce/debounce&#x27; </span></span></span><br><span class="javascript"><span class="xml"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span></span><br><span class="javascript"><span class="xml">  data () &#123;</span></span><br><span class="javascript"><span class="xml">    <span class="hljs-keyword">return</span> &#123;</span></span><br><span class="javascript"><span class="xml">      <span class="hljs-attr">confirmDebounce</span>: <span class="hljs-string">&#x27;&#x27;</span>,</span></span><br><span class="javascript"><span class="xml">      <span class="hljs-attr">timer</span>: <span class="hljs-literal">null</span></span></span><br><span class="javascript"><span class="xml">    &#125;</span></span><br><span class="javascript"><span class="xml">  &#125;,</span></span><br><span class="javascript"><span class="xml">  <span class="hljs-function"><span class="hljs-title">mounted</span>(<span class="hljs-params"></span>)</span> &#123;</span></span><br><span class="javascript"><span class="xml">  &#125;,</span></span><br><span class="javascript"><span class="xml">  <span class="hljs-attr">methods</span>: &#123;</span></span><br><span class="javascript"><span class="xml">    beforedebounce () &#123;</span></span><br><span class="javascript"><span class="xml">      <span class="hljs-comment">// utils.debounce(this.debounceFn, 1000)</span></span></span><br><span class="javascript"><span class="xml">      <span class="hljs-built_in">this</span>.debounce(<span class="hljs-built_in">this</span>.debounceFn, <span class="hljs-number">1000</span>)()</span></span><br><span class="javascript"><span class="xml">    &#125;,</span></span><br><span class="javascript"><span class="xml">    <span class="hljs-function"><span class="hljs-title">debounce</span>(<span class="hljs-params">fn, arg</span>)</span> &#123;</span></span><br><span class="javascript"><span class="xml">      <span class="hljs-built_in">console</span>.log(<span class="hljs-number">12312312</span>)</span></span><br><span class="javascript"><span class="xml">      <span class="hljs-comment">// let timer = null</span></span></span><br><span class="javascript"><span class="xml">      <span class="hljs-keyword">let</span> self = <span class="hljs-built_in">this</span></span></span><br><span class="javascript"><span class="xml">      <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span></span><br><span class="javascript"><span class="xml">        self.timer &amp;&amp; <span class="hljs-built_in">clearTimeout</span>(self.timer)</span></span><br><span class="javascript"><span class="xml">        self.timer = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">()=&gt;</span> &#123;</span></span><br><span class="javascript"><span class="xml">          self.timer = <span class="hljs-literal">null</span></span></span><br><span class="javascript"><span class="xml">          fn.call(self, arg)</span></span><br><span class="javascript"><span class="xml">        &#125;, <span class="hljs-number">1000</span>)</span></span><br><span class="javascript"><span class="xml">      &#125;</span></span><br><span class="javascript"><span class="xml">    &#125;,</span></span><br><span class="javascript"><span class="xml">    debounceFn () &#123;</span></span><br><span class="javascript"><span class="xml">      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;防抖&#x27;</span>)</span></span><br><span class="javascript"><span class="xml">    &#125;</span></span><br><span class="javascript"><span class="xml">  &#125;</span></span><br><span class="javascript"><span class="xml">&#125;</span></span><br><span class="javascript"><span class="xml"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span></span><br><span class="xml"></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+
+<p>若你把防抖函数的timer定义到方法里,则应该这样写,先定义一个变量把防抖函数返回的方法赋给这个变量。这样这个变量其实就是这个防抖函数return的方法。再使用变量()调用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-comment">// index.vue</span><br>&lt;template&gt;<br>  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;debounce&quot;</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>smile<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;beforedebounce&quot;</span>&gt;</span>防抖<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">    <span class="hljs-comment">&lt;!-- &lt;button @click=&quot;throttle&quot;&gt;节流&lt;/button&gt; --&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&lt;/template&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="javascript"><span class="xml"><span class="hljs-comment">// 引入防抖函数，我们也可以把这个防抖函数的方法挂在到全局，让它成为一个全局方法</span></span></span><br><span class="javascript"><span class="xml"><span class="hljs-comment">// import * as utils from &#x27;@/views/yang/debounce/debounce&#x27; </span></span></span><br><span class="javascript"><span class="xml"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span></span><br><span class="javascript"><span class="xml">  data () &#123;</span></span><br><span class="javascript"><span class="xml">    <span class="hljs-keyword">return</span> &#123;</span></span><br><span class="javascript"><span class="xml">      <span class="hljs-attr">confirmDebounce</span>: <span class="hljs-string">&#x27;&#x27;</span>,</span></span><br><span class="javascript"><span class="xml">    &#125;</span></span><br><span class="javascript"><span class="xml">  &#125;,</span></span><br><span class="javascript"><span class="xml">  <span class="hljs-function"><span class="hljs-title">mounted</span>(<span class="hljs-params"></span>)</span> &#123;</span></span><br><span class="javascript"><span class="xml">    <span class="hljs-built_in">this</span>.confirmDebounce = <span class="hljs-built_in">this</span>.debounce(<span class="hljs-built_in">this</span>.debounceFn, <span class="hljs-number">1000</span>)</span></span><br><span class="javascript"><span class="xml">  &#125;,</span></span><br><span class="javascript"><span class="xml">  <span class="hljs-attr">methods</span>: &#123;</span></span><br><span class="javascript"><span class="xml">    beforedebounce () &#123;</span></span><br><span class="javascript"><span class="xml">      <span class="hljs-comment">// utils.debounce(this.debounceFn, 1000)</span></span></span><br><span class="javascript"><span class="xml">      <span class="hljs-built_in">this</span>.confirmDebounce</span></span><br><span class="javascript"><span class="xml">    &#125;,</span></span><br><span class="javascript"><span class="xml">    <span class="hljs-function"><span class="hljs-title">debounce</span>(<span class="hljs-params">fn, arg</span>)</span> &#123;</span></span><br><span class="javascript"><span class="xml">      <span class="hljs-built_in">console</span>.log(<span class="hljs-number">12312312</span>)</span></span><br><span class="javascript"><span class="xml">      <span class="hljs-keyword">let</span> timer = <span class="hljs-literal">null</span></span></span><br><span class="javascript"><span class="xml">      <span class="hljs-keyword">let</span> self = <span class="hljs-built_in">this</span></span></span><br><span class="javascript"><span class="xml">      <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span></span><br><span class="javascript"><span class="xml">        self.timer &amp;&amp; <span class="hljs-built_in">clearTimeout</span>(self.timer)</span></span><br><span class="javascript"><span class="xml">        self.timer = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">()=&gt;</span> &#123;</span></span><br><span class="javascript"><span class="xml">          self.timer = <span class="hljs-literal">null</span></span></span><br><span class="javascript"><span class="xml">          fn.call(self, arg)</span></span><br><span class="javascript"><span class="xml">        &#125;, <span class="hljs-number">1000</span>)</span></span><br><span class="javascript"><span class="xml">      &#125;</span></span><br><span class="javascript"><span class="xml">    &#125;,</span></span><br><span class="javascript"><span class="xml">    debounceFn () &#123;</span></span><br><span class="javascript"><span class="xml">      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;防抖&#x27;</span>)</span></span><br><span class="javascript"><span class="xml">    &#125;</span></span><br><span class="javascript"><span class="xml">  &#125;</span></span><br><span class="javascript"><span class="xml">&#125;</span></span><br><span class="javascript"><span class="xml"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span></span><br><span class="xml"></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+
+
+
+<p>下面是，把防抖函数抽离出来放到一个js文件里。也可以把它挂在到全局当作一个全局方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-comment">// debounce.js</span><br> <span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 防抖函数一般用于防止重复点击或表单的重复提交，它只执行最后一次的提交</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param <span class="hljs-type">&#123;*&#125;</span> </span>method 需要防抖的方法</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param <span class="hljs-type">&#123;*&#125;</span> </span>dely 防抖时间 | 默认为0.5秒</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@returns </span></span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">let</span> timer<br><span class="hljs-keyword">const</span> debounce = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">method, dely=<span class="hljs-number">500</span></span>) </span>&#123;<br>  <span class="hljs-comment">// 不要把timer定义到函数内，因为定义到函数内，每次调用这个方法都会生成一个新的timer,这样就不会有防抖的效果</span><br>  <span class="hljs-comment">// 如果你非要在函数方法里面定义timer，那你用的时候，得const getDebounce = debounce(method, dely),然后再getDebounce()去调用</span><br>  <span class="hljs-comment">// let timer </span><br>  <span class="hljs-keyword">let</span> self = <span class="hljs-built_in">this</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    timer &amp;&amp; <span class="hljs-built_in">clearTimeout</span>(timer)<br>    timer = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">()=&gt;</span> &#123;<br>      method.call(self)<br>    &#125;, dely)<br>  &#125;<br>&#125;<br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 使用</span><br><span class="hljs-comment"> * import * as utils from &#x27;@/views/yang/debounce/debounce&#x27; </span><br><span class="hljs-comment"> * utils.debounce(this.debounceFn, 1000)()</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 不使用return function () 返回闭包的形式</span><br><span class="hljs-comment"> *  let timer</span><br><span class="hljs-comment">    const debounce = function (method, dely=500) &#123;</span><br><span class="hljs-comment">      let self = this</span><br><span class="hljs-comment">      timer &amp;&amp; clearTimeout(timer)</span><br><span class="hljs-comment">        timer = setTimeout(()=&gt; &#123;</span><br><span class="hljs-comment">          method.call(self)</span><br><span class="hljs-comment">        &#125;, dely)</span><br><span class="hljs-comment">    &#125;</span><br><span class="hljs-comment"> * </span><br><span class="hljs-comment"> * </span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 使用</span><br><span class="hljs-comment"> * import * as utils from &#x27;@/views/yang/debounce/debounce&#x27; </span><br><span class="hljs-comment"> * utils.debounce(this.debounceFn, 1000)</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">export</span>  &#123;debounce&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>前言<br>接着《JavaScript专题进阶之防抖》，我们来聊一聊节流——另一个优化函数的思想。</p>
+<p>我们还是以移动事件举例</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs HTML"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;ie=edge&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Document<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css"></span><br><span class="css">    <span class="hljs-selector-id">#wrapper</span> &#123;</span><br><span class="css">      <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;</span><br><span class="css">      <span class="hljs-attribute">height</span>: <span class="hljs-number">140px</span>;</span><br><span class="css">      <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.8</span>);</span><br><span class="css">      <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;</span><br><span class="css">      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">30px</span>;</span><br><span class="css">      <span class="hljs-attribute">font-weight</span>: bold;</span><br><span class="css">      <span class="hljs-attribute">line-height</span>: <span class="hljs-number">140px</span>;</span><br><span class="css">      <span class="hljs-attribute">text-align</span>: center;</span><br><span class="css">    &#125;</span><br><span class="css">  </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;wrapper&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript">    <span class="hljs-keyword">var</span> count = <span class="hljs-number">1</span>;</span><br><span class="javascript">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">moveAction</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">      oWrapper.innerHTML = count++;</span><br><span class="javascript">    &#125;</span><br><span class="javascript">    <span class="hljs-keyword">var</span> oWrapper = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#wrapper&#x27;</span>);</span><br><span class="javascript">  oWrapper.onmousemove = moveAction;</span><br><span class="javascript">  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br><br><br></code></pre></td></tr></table></figure>
+
+
+<p>它的效果是这样：</p>
+<p><img   class="lazyload" data-original="https://img-blog.csdnimg.cn/2020073118424074.gif" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p><strong>一、核心和基本实现</strong><br>节流的原理很简单：如果你持续触发某个事件，特定的时间间隔内，只执行一次。</p>
+<p>关于节流的实现，有两种主流的实现方式：</p>
+<ol>
+<li>时间戳思路</li>
+<li>定时器思路</li>
+</ol>
+<h4 id="1-1-时间戳思路"><a href="#1-1-时间戳思路" class="headerlink" title="1.1 时间戳思路"></a>1.1 时间戳思路</h4><p>顾名思义，通过两个时间戳来控制时间间隔，当触发事件的时候：</p>
+<ol>
+<li>我们取出当前的时间戳 now；</li>
+<li>然后减去之前<strong>执行时</strong>的时间戳(首次值为 0 ) prev；</li>
+<li>如果大now - prev &gt; wait，证明时间区间维护结束，执行指定事件，更新prev；</li>
+</ol>
+<p>根据这一思路，我们就可以实现第一版代码了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript">oWrapper.onmousemove = throttle(moveAction, <span class="hljs-number">1000</span>);<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">throttle</span>(<span class="hljs-params">func, wait</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> _this, arg;<br>  <span class="hljs-keyword">var</span> prev = <span class="hljs-number">0</span>; <span class="hljs-comment">// 上一次触发的时间，第一次默认为0</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">var</span> now = <span class="hljs-built_in">Date</span>.now(); <span class="hljs-comment">// 触发时的时间</span><br>    _this = <span class="hljs-built_in">this</span>;<br>    <span class="hljs-keyword">if</span> (now - prev &gt; wait) &#123;<br>      func.apply(_this, arg); <span class="hljs-comment">// 允许传入参数，并修正this</span><br>      prev = now; <span class="hljs-comment">// 更新上一次触发的时间</span><br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>来看看借助它，效果是什么样的：</p>
+<p><img   class="lazyload" data-original="https://img-blog.csdnimg.cn/2020073118424074.gif" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>我们可以看到：</p>
+<ol>
+<li>当鼠标移入的时候，事件立刻执行</li>
+<li>每过 1s 会执行一次，且移动2.5s会执行2次，意味着动作停止后不会再执行。</li>
+</ol>
+<h4 id="1-2-定时器思路"><a href="#1-2-定时器思路" class="headerlink" title="1.2 定时器思路"></a>1.2 定时器思路</h4><p>利用定时器来保证间隔时间内事件的触发次数</p>
+<ol>
+<li>创建定时器timer，记录当前是否在周期内；</li>
+<li>判断定时器是否存在，若存在则直接结束，否则执行事件；</li>
+<li>wait时间之后再次执行，并清掉定时器；</li>
+</ol>
+<p>当触发事件的时候，我们设置一个定时器，再触发事件的时候，如果定时器存在，就不执行，直到定时器执行，然后执行函数，清空定时器，这样就可以设置下个定时器。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">throttle</span>(<span class="hljs-params">func, wait</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> _this, arg;<br>  <span class="hljs-keyword">var</span> timer; <span class="hljs-comment">// 初始化</span><br><br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    _this = <span class="hljs-built_in">this</span>; <span class="hljs-comment">// 记录this</span><br>    arg = <span class="hljs-built_in">arguments</span>; <span class="hljs-comment">// 记录参数数组</span><br>    <span class="hljs-keyword">if</span> (timer) <span class="hljs-keyword">return</span>; <span class="hljs-comment">// 时候未到</span><br>    timer = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      func.apply(_this, arg); <span class="hljs-comment">// 允许传入参数，并修正this</span><br>      timer = <span class="hljs-literal">null</span>;<br>    &#125;, wait);<br><br>  &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>来看看借助它，效果是什么样的：</p>
+<p><img   class="lazyload" data-original="https://img-blog.csdnimg.cn/20200731184930157.gif" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>但是，我们可以看到：</p>
+<ol>
+<li>当鼠标移入的时候，事件不会立刻执行;</li>
+<li>鼠标定制后wait间隔后会执行一次</li>
+</ol>
+<h4 id="1-3-两种思路的区别"><a href="#1-3-两种思路的区别" class="headerlink" title="1.3 两种思路的区别"></a>1.3 两种思路的区别</h4><pre><code>             时间戳                   定时器
+</code></pre>
+<p>“起点”  立即执行             n 秒后执行<br>“终点”  停止后不会执行  停止会再执行一次<br>二、节流进阶<br>结合两种思想完成一个可以立即执行，且停止触发后再执行一次的节流方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">throttle</span>(<span class="hljs-params">func, wait</span>) </span>&#123;<br><br>  <span class="hljs-keyword">var</span> timeout, context, args, result;<br><br>  <span class="hljs-keyword">var</span> previous = <span class="hljs-number">0</span>;<br><br>  <span class="hljs-keyword">var</span> later = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br><br>    previous = +<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();<br><br>    timeout = <span class="hljs-literal">null</span>;<br><br>    func.apply(context, args)<br><br>  &#125;;<br><br>  <span class="hljs-keyword">var</span> throttled = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br><br>    <span class="hljs-keyword">var</span> now = +<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();<br><br>    <span class="hljs-comment">//下次触发 func 剩余的时间</span><br><br>    <span class="hljs-keyword">var</span> remaining = wait - (now - previous);<br><br>    context = <span class="hljs-built_in">this</span>;<br><br>    args = <span class="hljs-built_in">arguments</span>;<br><br>      <span class="hljs-comment">// 如果没有剩余的时间了或者你改了系统时间</span><br><br>    <span class="hljs-keyword">if</span> (remaining &lt;= <span class="hljs-number">0</span> || remaining &gt; wait) &#123;<br><br>      <span class="hljs-keyword">if</span> (timeout) &#123;<br><br>        <span class="hljs-built_in">clearTimeout</span>(timeout);<br><br>        timeout = <span class="hljs-literal">null</span>;<br><br>      &#125;<br><br>      previous = now;<br><br>      func.apply(context, args);<br><br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!timeout) &#123;<br><br>      timeout = <span class="hljs-built_in">setTimeout</span>(later, remaining);<br><br>    &#125;<br><br>  &#125;;<br>  <span class="hljs-keyword">return</span> throttled;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>// 第三版</p>
+<p>效果演示如下：</p>
+<p><img   class="lazyload" data-original="https://img-blog.csdnimg.cn/20200804192756351.gif" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>我在看代码的时候，我是反复打印数据才理解为什么会这样做，一起加油～<br>————————————————<br>版权声明：本文为CSDN博主「余光、」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/jbj6568839z/article/details/107796115">https://blog.csdn.net/jbj6568839z/article/details/107796115</a></p>
+<h3 id="之前我们销帮的项目里面使用deboubce的方式是错误的"><a href="#之前我们销帮的项目里面使用deboubce的方式是错误的" class="headerlink" title="之前我们销帮的项目里面使用deboubce的方式是错误的"></a>之前我们销帮的项目里面使用deboubce的方式是错误的</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-comment">// 比如点击按钮时使用防抖函数, 每点击button的时候都会生成一个新的debounce实例，</span><br><span class="hljs-comment">// 也就是新的防抖函数</span><br>clickButton () &#123;<br>  utils.debounce(<span class="hljs-function">()=&gt;</span> &#123;<br>    <span class="hljs-built_in">this</span>.fn()<br>  &#125;, <span class="hljs-number">500</span>)<br>&#125;<br><br><span class="hljs-comment">// 先把方法赋值给一个常量，然后调用这个常量，每次点击的时候生成的都是第一次的实例了</span><br><span class="hljs-keyword">const</span> debounceFn = utils.debounce(<span class="hljs-function">()=&gt;</span> &#123;<br>    <span class="hljs-built_in">this</span>.fn()<br>  &#125;, <span class="hljs-number">500</span>)<br> <br>clickButton () &#123;<br>  debounceFn()<br>&#125;<br><br><br></code></pre></td></tr></table></figure>
+
+
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>Smile</li>
+    <li><strong>本文链接：</strong><a href="http://example.com/2019/07/27/js/%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81/%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81/index.html" title="http:&#x2F;&#x2F;example.com&#x2F;2019&#x2F;07&#x2F;27&#x2F;js&#x2F;%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81&#x2F;%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81&#x2F;index.html">http:&#x2F;&#x2F;example.com&#x2F;2019&#x2F;07&#x2F;27&#x2F;js&#x2F;%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81&#x2F;%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img   class="lazyload" data-original="https://pic.izhaoo.com/alipay.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2020/04/05/js/%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%96%E8%AF%91%E6%97%B6%E5%8A%A0%E8%BD%BD%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8A%A0%E8%BD%BD/%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%96%E8%AF%91%E6%97%B6%E5%8A%A0%E8%BD%BD%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8A%A0%E8%BD%BD/"><i class="iconfont iconleft"></i>什么是编译时加载与运行时加载</a>
+    <a href="/2019/06/02/js/%E6%95%B0%E7%BB%84%E3%80%81%E5%AF%B9%E8%B1%A1%E3%80%81%E6%96%B9%E6%B3%95%E7%AD%89%E4%B8%80%E4%BA%9B%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/%E6%95%B0%E7%BB%84%E3%80%81%E5%AF%B9%E8%B1%A1%E3%80%81%E6%96%B9%E6%B3%95%E7%AD%89%E4%B8%80%E4%BA%9B%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">数组、对象、方法等一些处理数据的常用方法<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81"><span class="toc-text">防抖节流</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%8B%E5%89%8D%E6%88%91%E4%BB%AC%E9%94%80%E5%B8%AE%E7%9A%84%E9%A1%B9%E7%9B%AE%E9%87%8C%E9%9D%A2%E4%BD%BF%E7%94%A8deboubce%E7%9A%84%E6%96%B9%E5%BC%8F%E6%98%AF%E9%94%99%E8%AF%AF%E7%9A%84"><span class="toc-text">之前我们销帮的项目里面使用deboubce的方式是错误的</span></a></li></ol></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

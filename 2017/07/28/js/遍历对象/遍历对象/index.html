@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>遍历对象 - Smile的个人博客</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="vue">
+  <meta name="description" content="遍历对象js 遍历对象的几种方法第一种： for……i...">
+  <meta name="author" content="Smile">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">遍历对象</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">遍历对象</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>七月 28, 2017</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>756</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+        <h1 id="遍历对象"><a href="#遍历对象" class="headerlink" title="遍历对象"></a>遍历对象</h1><h1 id="js-遍历对象的几种方法"><a href="#js-遍历对象的几种方法" class="headerlink" title="js 遍历对象的几种方法"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/best-coder/p/11550422.html">js 遍历对象的几种方法</a></h1><p>第一种： for……in<br /><br /><br />const obj = {<br />            id:1,<br />            name:’zhangsan’,<br />            age:18<br />}</p>
+<p><img   class="lazyload" data-original="https://cdn.nlark.com/yuque/0/2021/gif/1548827/1612409064471-95d60ff5-cbad-4a79-a9d4-0fa16f17cb05.gif#height=20&id=lMQSP&originHeight=20&originWidth=20&originalType=binary&size=0&status=done&style=none&width=20" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p><img   class="lazyload" data-original="https://cdn.nlark.com/yuque/0/2021/gif/1548827/1612409064459-e2057ba4-15d6-4822-b8dd-3e24ee53c3bf.gif#height=20&id=GUVTK&originHeight=20&originWidth=20&originalType=binary&size=0&status=done&style=none&width=20" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p> for(let key  in obj){<br />        console.log(key + ‘—‘ + obj[key])<br />  }<br /><br /><br />输出结果：<br /><br /> <br /> <br />第二种：<br />1）、Object.keys（obj）<br />2）、Object.values（obj）<br />参数：<br />obj：要返回其枚举自身属性的对象<br />返回值：<br />一个表示给定对象的所有可枚举属性的字符串数组。<br /><br /><br />const obj = {<br />　　　　id:1,<br />　　　　name:’zhangsan’,<br />　　　　age:18<br />}<br /> console.log(Object.keys(obj))<br />console.log(Object.values(obj))<br /><br /><br />输出结果： obj对象的key组成的数组<br />[‘id’,’name’,’age’]<br /> <br />输出结果：obj对象的value组成的数组<br />[‘1’,’zhangsan’,’18’]<br /> <br /> <br />第三种：使用Object.getOwnPropertyNames(obj)<br />返回一个数组，包含对象自身的所有属性（包含不可枚举属性）<br />遍历可以获取key和value<br /><br /><br />const obj = {<br />            id:1,<br />            name:’zhangsan’,<br />            age:18<br />    }<br />    Object.getOwnPropertyNames(obj).forEach(function(key){<br />        console.log(key+ ‘—‘+obj[key])<br />    })<br /><br /><br />输出结果：<br /></p>
+<p><img   class="lazyload" data-original="https://cdn.nlark.com/yuque/0/2021/gif/1548827/1612409064434-89ac70b6-6bd2-4e15-ad75-04e74cec30f4.gif#height=20&id=Qugg3&originHeight=20&originWidth=20&originalType=binary&size=0&status=done&style=none&width=20" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p><img   class="lazyload" data-original="https://cdn.nlark.com/yuque/0/2021/gif/1548827/1612409064707-bc5e370a-0167-462b-87b7-ad973c65a69a.gif#height=20&id=g1emA&originHeight=20&originWidth=20&originalType=binary&size=0&status=done&style=none&width=20" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p><img   class="lazyload" data-original="https://cdn.nlark.com/yuque/0/2021/png/1548827/1612409064443-8f52c398-cabe-4e3d-b235-7a36513905b3.png#height=69&id=H3EBj&originHeight=69&originWidth=177&originalType=binary&size=0&status=done&style=none&width=177" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p><img   class="lazyload" data-original="https://cdn.nlark.com/yuque/0/2021/gif/1548827/1612409064455-5cdebec3-88c1-4bcf-8c1f-574b3e7bdf6c.gif#height=20&id=J0p4D&originHeight=20&originWidth=20&originalType=binary&size=0&status=done&style=none&width=20" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p><img   class="lazyload" data-original="https://cdn.nlark.com/yuque/0/2021/gif/1548827/1612409064419-bb61e6ea-e6c4-4364-a455-46e8b0f19e52.gif#height=20&id=GIL0X&originHeight=20&originWidth=20&originalType=binary&size=0&status=done&style=none&width=20" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p><img   class="lazyload" data-original="https://cdn.nlark.com/yuque/0/2021/gif/1548827/1612409064532-39afedeb-2ca0-4fd0-9e20-d27532da3c08.gif#height=20&id=npPwK&originHeight=20&originWidth=20&originalType=binary&size=0&status=done&style=none&width=20" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p><img   class="lazyload" data-original="https://cdn.nlark.com/yuque/0/2021/gif/1548827/1612409064499-5fb4427d-ba2c-493a-ae19-3cfcb5a2f183.gif#height=20&id=a4ndp&originHeight=20&originWidth=20&originalType=binary&size=0&status=done&style=none&width=20" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p><img   class="lazyload" data-original="https://cdn.nlark.com/yuque/0/2021/gif/1548827/1612409064609-7160d1c7-b98d-4f76-a90c-b6f925c38d9d.gif#height=20&id=afsPk&originHeight=20&originWidth=20&originalType=binary&size=0&status=done&style=none&width=20" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p><img   class="lazyload" data-original="https://cdn.nlark.com/yuque/0/2021/gif/1548827/1612409064490-a2749568-81c2-4edf-b693-820743d21fe2.gif#height=20&id=Swu39&originHeight=20&originWidth=20&originalType=binary&size=0&status=done&style=none&width=20" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p><img   class="lazyload" data-original="https://cdn.nlark.com/yuque/0/2021/gif/1548827/1612409064577-02c4f449-3f8e-462d-b474-0202db5f48e9.gif#height=20&id=FV9oa&originHeight=20&originWidth=20&originalType=binary&size=0&status=done&style=none&width=20" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p><img   class="lazyload" data-original="https://cdn.nlark.com/yuque/0/2021/gif/1548827/1612409064511-e7316aa3-5338-4e15-a06b-e3c5e71116d2.gif#height=20&id=tynbO&originHeight=20&originWidth=20&originalType=binary&size=0&status=done&style=none&width=20" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p><img   class="lazyload" data-original="https://cdn.nlark.com/yuque/0/2021/png/1548827/1612409064542-10fe4b28-80a4-4116-aef5-bc4bd6ebf34a.png#height=63&id=Fzwmc&originHeight=63&originWidth=136&originalType=binary&size=0&status=done&style=none&width=136" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
+<p>遍历对象</p>
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>Smile</li>
+    <li><strong>本文链接：</strong><a href="http://example.com/2017/07/28/js/%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1/%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1/index.html" title="http:&#x2F;&#x2F;example.com&#x2F;2017&#x2F;07&#x2F;28&#x2F;js&#x2F;%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1&#x2F;%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1&#x2F;index.html">http:&#x2F;&#x2F;example.com&#x2F;2017&#x2F;07&#x2F;28&#x2F;js&#x2F;%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1&#x2F;%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img   class="lazyload" data-original="https://pic.izhaoo.com/alipay.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/2018/08/17/js/%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E5%8E%BB%E9%99%A4id%E7%9B%B8%E5%90%8C%E7%9A%84%E9%82%A3%E4%B8%80%E9%A1%B9/%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E5%8E%BB%E9%99%A4id%E7%9B%B8%E5%90%8C%E7%9A%84%E9%82%A3%E4%B8%80%E9%A1%B9/"><i class="iconfont iconleft"></i>两个数组去除id相同的那一项</a>
+    <a href="/2017/07/27/js/%E7%BC%96%E5%86%99%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/%E7%BC%96%E5%86%99%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/">编写高质量的代码<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1"><span class="toc-text">遍历对象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#js-%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="toc-text">js 遍历对象的几种方法</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

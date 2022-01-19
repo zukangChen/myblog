@@ -1,0 +1,460 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>web开发的五种设计模式 - Smile的个人博客</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  <meta name="keywords" content="vue">
+  <meta name="description" content="web开发的五种设计模式Web开发应了解的5种设计模式...">
+  <meta name="author" content="Smile">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_p6ry5n7lrr.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      loading: {
+        gif: '/images/theme/loading.gif',
+        lottie: ''
+      },
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: {
+          gif: '/images/theme/loading.gif',
+          lottie: ''
+        }
+      },
+      donate: {
+        enable: true,
+        alipay: 'https://pic.izhaoo.com/alipay.jpg',
+        wechat: 'https://pic.izhaoo.com/wechat.jpg'
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: 'https://pic.izhaoo.com/weapp-code.jpg',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      },
+      search: {
+        enable: false,
+        path: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="lock-screen">
+  <div class="loading" id="loading"></div>
+  
+    
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconhome j-navbar-back-home"></i>
+      
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+      
+    </div>
+    <div class="center">web开发的五种设计模式</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+  
+
+<nav class="menu">
+  <div class="menu-container">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">web开发的五种设计模式</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>一月 12, 2022</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>6591</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        
+        <h1 id="web开发的五种设计模式"><a href="#web开发的五种设计模式" class="headerlink" title="web开发的五种设计模式"></a>web开发的五种设计模式</h1><h1 id="Web开发应了解的5种设计模式🍊"><a href="#Web开发应了解的5种设计模式🍊" class="headerlink" title="Web开发应了解的5种设计模式🍊"></a>Web开发应了解的5种设计模式🍊</h1><h2 id="什么是设计模式？"><a href="#什么是设计模式？" class="headerlink" title="什么是设计模式？"></a>什么是设计模式？</h2><p>设计模式是对软件设计开发过程中<strong>反复出现的某类问题的通用解决方案</strong>。设计模式更多的是指导思想和方法论，而不是现成的代码，当然每种设计模式都有每种语言中的具体实现方式。学习设计模式更多的是理解各种模式的内在思想和解决的问题，毕竟这是前人无数经验总结成的最佳实践，而代码实现则是对加深理解的辅助。使用设计模式是为了<strong>可重用代码、让代码更容易被他人理解、保证代码可靠性</strong>。<br />在本文中，我将介绍其中常见的四种设计模式在JavaScript中实际使用场景：</p>
+<h2 id="单例设计模式"><a href="#单例设计模式" class="headerlink" title="单例设计模式"></a>单例设计模式</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><blockquote>
+<p>单例模式仅允许类或对象具有单个实例，并且它使用全局变量来存储该实例。</p>
+</blockquote>
+<ul>
+<li><strong>实现方法</strong>是判断是否存在该对象的实例，如果已存在则不再创建</li>
+<li><strong>使用场景</strong>适用于业务场景中只能存在一个的实例，比如弹窗，购物车</li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p><strong>单例模式分为懒汉式和饿汉式:</strong></p>
+<ul>
+<li>懒汉式</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> ShopCar = (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br> <span class="hljs-keyword">let</span> instance; <br> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">init</span>(<span class="hljs-params"></span>) </span>&#123;<br>   <span class="hljs-comment">/*这里定义单例代码*/</span><br>   <span class="hljs-keyword">return</span> &#123;<br>     <span class="hljs-function"><span class="hljs-title">buy</span>(<span class="hljs-params">good</span>)</span> &#123;<br>       <span class="hljs-built_in">this</span>.goods.push(good);<br>     &#125;,<br>     <span class="hljs-attr">goods</span>: [],<br>   &#125;;<br> &#125;<br> <span class="hljs-keyword">return</span> &#123;<br>   <span class="hljs-attr">getInstance</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>     <span class="hljs-keyword">if</span> (!instance) &#123;<br>       instance = init();<br>     &#125;<br>     <span class="hljs-keyword">return</span> instance;<br>   &#125;,<br> &#125;;<br>&#125;)();<br><span class="hljs-keyword">let</span> car1 = ShopCar.getInstance();<br><span class="hljs-keyword">let</span> car2 = ShopCar.getInstance();<br>car1.buy(<span class="hljs-string">&#x27;橘子&#x27;</span>); <br>car2.buy(<span class="hljs-string">&#x27;苹果&#x27;</span>); <br><span class="hljs-built_in">console</span>.log(car1.goods);<span class="hljs-comment">//[ &#x27;橘子&#x27;, &#x27;苹果&#x27; ]</span><br><span class="hljs-built_in">console</span>.log(car1 === car2); <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+
+
+<ul>
+<li>饿汉式</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> ShopCar = (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br> <span class="hljs-keyword">var</span> instance = init();<br> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">init</span>(<span class="hljs-params"></span>) </span>&#123;<br>   <span class="hljs-comment">/*这里定义单例代码*/</span><br>   <span class="hljs-keyword">return</span> &#123;<br>     <span class="hljs-function"><span class="hljs-title">buy</span>(<span class="hljs-params">good</span>)</span> &#123;<br>       <span class="hljs-built_in">this</span>.goods.push(good);<br>     &#125;,<br>     <span class="hljs-attr">goods</span>: [],<br>   &#125;;<br> &#125;<br> <span class="hljs-keyword">return</span> &#123;<br>   <span class="hljs-attr">getInstance</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>     <span class="hljs-keyword">return</span> instance;<br>   &#125;,<br> &#125;;<br>&#125;)();<br><span class="hljs-keyword">let</span> car1 = ShopCar.getInstance();<br><span class="hljs-keyword">let</span> car2 = ShopCar.getInstance();<br>car1.buy(<span class="hljs-string">&#x27;橘子&#x27;</span>);<br>car2.buy(<span class="hljs-string">&#x27;苹果&#x27;</span>); <span class="hljs-comment">//[ &#x27;橘子&#x27;, &#x27;苹果&#x27; ]</span><br><span class="hljs-built_in">console</span>.log(car1.goods);<br><span class="hljs-built_in">console</span>.log(car1 === car2); <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p><code>懒汉式</code>在类加载时，不创建实例，因此类加载速度快，但运行时获取对象的速度慢；<code>饿汉式</code>在类加载时就完成了初始化，所以类加载较慢，但获取对象的速度快</p>
+</blockquote>
+<h2 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><blockquote>
+<p>策略模式定义一系列的算法，将每一个算法封装起来，并让他们可以相互替换。</p>
+</blockquote>
+<ul>
+<li><strong>实现方法</strong>定义一组可变的策略类封装具体算法，定义一组不变的环境类将请求委托给某一个策略类</li>
+<li><strong>使用场景</strong>适用于业务场景中需要判断多种条件，甚至包含复杂条件嵌套的，可以使用策略模式来提升代码的可维护性和可读性。比如支付，博客权限校验</li>
+</ul>
+<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><p><strong>实例:</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 定义几个策略类</span><br><span class="hljs-keyword">var</span> PaymentMethodStrategy = &#123;<br> <span class="hljs-attr">BankAccount</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">money</span>) </span>&#123;<br>   <span class="hljs-keyword">return</span> money &gt; <span class="hljs-number">50</span> ? money * <span class="hljs-number">0.7</span> : money;<br> &#125;,<br> <span class="hljs-attr">CreditCard</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">money</span>) </span>&#123;<br>   <span class="hljs-keyword">return</span> money * <span class="hljs-number">0.8</span>;<br> &#125;,<br> <span class="hljs-attr">Alipay</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">money</span>) </span>&#123;<br>   <span class="hljs-keyword">return</span> money;<br> &#125;,<br>&#125;;<br><span class="hljs-comment">/*环境类*/</span><br><span class="hljs-keyword">var</span> userPay = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">selectedStrategy, money</span>) </span>&#123;<br> <span class="hljs-keyword">return</span> PaymentMethodStrategy[selectedStrategy](money);<br>&#125;;<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;银行卡支付价格为：&#x27;</span> + userPay(<span class="hljs-string">&#x27;BankAccount&#x27;</span>, <span class="hljs-number">100</span>)); <span class="hljs-comment">//70</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;支付宝支付价格为：&#x27;</span> + userPay(<span class="hljs-string">&#x27;Alipay&#x27;</span>, <span class="hljs-number">100</span>)); <span class="hljs-comment">//100</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;信用卡支付价格为：&#x27;</span> + userPay(<span class="hljs-string">&#x27;CreditCard&#x27;</span>, <span class="hljs-number">100</span>)); <span class="hljs-comment">//80</span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><h3 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h3><blockquote>
+<p>观察者模式，也叫订阅-发布模式，是对象的行为模式，在对象之间定义了一对多的依赖关系，就是多个观察者和一个被观察者之间的关系，当被观察者发生变化的时候，会通知所有的观察者对象，他们做出相对应的操作。</p>
+</blockquote>
+<ul>
+<li><strong>实现方法</strong>定义一组可变的策略类封装具体算法，定义一组不变的环境类将请求委托给某一个策略类</li>
+<li><strong>使用场景</strong>适用于业务场景中当一个对象的状态发生变化时，需要自动通知其他关联对象，自动刷新对象状态，或者说执行对应对象的方法，比如你是一个老师，需要通知班里家长的时候，你可以建一个群（列表）。每次通知事件的时候只要循环执行这个列表就好了（群发），而不用关心这个列表里有谁。</li>
+</ul>
+<h3 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h3><p><strong>实例:</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 创建一个群，保存通知，通知变化之后通知每个家长（触发所有观察者对象）</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Group</span> </span>&#123;<br> <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> &#123;<br>   <span class="hljs-built_in">this</span>.message = <span class="hljs-string">&#x27;暂无通知&#x27;</span>;<br>   <span class="hljs-built_in">this</span>.parents = [];<br> &#125;<br> <span class="hljs-function"><span class="hljs-title">getMessage</span>(<span class="hljs-params"></span>)</span> &#123;<br>   <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.message;<br> &#125;<br> <span class="hljs-function"><span class="hljs-title">setMassage</span>(<span class="hljs-params">message</span>)</span> &#123;<br>   <span class="hljs-built_in">this</span>.message = message;<br>   <span class="hljs-built_in">this</span>.notifyAllObservers();<br> &#125;<br> <span class="hljs-function"><span class="hljs-title">notifyAllObservers</span>(<span class="hljs-params"></span>)</span> &#123;<br>   <span class="hljs-built_in">this</span>.parents.forEach(<span class="hljs-function">(<span class="hljs-params">parent</span>) =&gt;</span> &#123;<br>     parent.update();<br>   &#125;);<br> &#125;<br> <span class="hljs-function"><span class="hljs-title">attach</span>(<span class="hljs-params">parent</span>)</span> &#123;<br>   <span class="hljs-built_in">this</span>.parents.push(parent);<br> &#125;<br>&#125;<br><span class="hljs-comment">// 观察者，每个家长</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>&#123;<br> <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">name, group</span>)</span> &#123;<br>   <span class="hljs-built_in">this</span>.name = name;<br>   <span class="hljs-built_in">this</span>.group = group;<br>   <span class="hljs-built_in">this</span>.group.attach(<span class="hljs-built_in">this</span>);<br> &#125;<br> <span class="hljs-function"><span class="hljs-title">update</span>(<span class="hljs-params"></span>)</span> &#123;<br>   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">$&#123;<span class="hljs-built_in">this</span>.name&#125;</span> 收到通知: <span class="hljs-subst">$&#123;<span class="hljs-built_in">this</span>.group.getMessage()&#125;</span>`</span>);<br> &#125;<br>&#125;<br><span class="hljs-keyword">let</span> group = <span class="hljs-keyword">new</span> Group();<br><span class="hljs-keyword">let</span> t1 = <span class="hljs-keyword">new</span> Parent(<span class="hljs-string">&#x27;李妈妈&#x27;</span>, group);<br><span class="hljs-keyword">let</span> t2 = <span class="hljs-keyword">new</span> Parent(<span class="hljs-string">&#x27;王爸爸&#x27;</span>, group);<br><span class="hljs-keyword">let</span> t3 = <span class="hljs-keyword">new</span> Parent(<span class="hljs-string">&#x27;张爷爷&#x27;</span>, group);<br>group.setMassage(<span class="hljs-string">&#x27;开家长会&#x27;</span>);<br>group.setMassage(<span class="hljs-string">&#x27;开运动会&#x27;</span>);<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">李妈妈 收到通知: 开家长会</span><br><span class="hljs-comment">王爸爸 收到通知: 开家长会</span><br><span class="hljs-comment">张爷爷 收到通知: 开家长会</span><br><span class="hljs-comment">李妈妈 收到通知: 开运动会</span><br><span class="hljs-comment">王爸爸 收到通知: 开运动会</span><br><span class="hljs-comment">张爷爷 收到通知: 开运动会</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h2><h3 id="定义-3"><a href="#定义-3" class="headerlink" title="定义"></a>定义</h3><blockquote>
+<p>在不改变原来的结构和功能基础上，动态装饰一些针对特别场景所适用的方法或属性，即添加一些新功能以增强它的某种能力</p>
+</blockquote>
+<ul>
+<li><strong>实现方法</strong>定义一组可变的策略类封装具体算法，定义一组不变的环境类将请求委托给某一个策略类</li>
+<li><strong>使用场景</strong>原有方法维持不变，在原有方法上再挂载其他方法来满足现有需求；函数的解耦，将函数拆分成多个可复用的函数，再将拆分出来的函数挂载到某个函数上，实现相同的效果但增强了复用性。比如多孔插座，机车改装</li>
+</ul>
+<h3 id="实现-3"><a href="#实现-3" class="headerlink" title="实现"></a>实现</h3><p><strong>实例:</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> Man = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br> <span class="hljs-built_in">this</span>.run = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;跑步&#x27;</span>);<br> &#125;;<br>&#125;;<br><span class="hljs-keyword">const</span> Decorator = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">old</span>) </span>&#123;<br> <span class="hljs-built_in">this</span>.oldAbility = old.run;<br> <span class="hljs-built_in">this</span>.fly = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;具备飞行能力&#x27;</span>);<br> &#125;;<br> <span class="hljs-built_in">this</span>.newAbility = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>   <span class="hljs-built_in">this</span>.oldAbility();<br>   <span class="hljs-built_in">this</span>.fly();<br> &#125;;<br>&#125;;<br><span class="hljs-keyword">const</span> man = <span class="hljs-keyword">new</span> Man();<br><span class="hljs-keyword">const</span> superMan = <span class="hljs-keyword">new</span> Decorator(man);<br>superMan.fly(); <span class="hljs-comment">// 具备飞行能力</span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h2><h3 id="定义-4"><a href="#定义-4" class="headerlink" title="定义"></a>定义</h3><blockquote>
+<p>代理模式给某一个对象提供一个代理对象，并由代理对象控制对原对象的引用。通俗的来讲代理模式就是我们生活中常见的中介。</p>
+</blockquote>
+<ul>
+<li><strong>实现方法</strong>定义一个委托者和一个代理，需要委托的事情在代理中完成</li>
+<li><strong>使用场景</strong>在某些情况下，一个客户类不想或者不能直接引用一个委托对象，而代理类对象可以在客户类和委托对象之间起到中介的作用。代理可以帮客户过滤掉一些请求并且把一些开销大的对象，延迟到真正需要它时才创建。中介购车、代购、课代表替老师收作业</li>
+</ul>
+<h3 id="实现-4"><a href="#实现-4" class="headerlink" title="实现"></a>实现</h3><p><strong>实例:</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Letter</span> </span>&#123;<br> <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">name</span>)</span> &#123;<br>   <span class="hljs-built_in">this</span>.name = name;<br> &#125;<br>&#125;<br><span class="hljs-comment">// 暗恋人小明</span><br><span class="hljs-keyword">let</span> XiaoMing = &#123;<br> <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;小明&#x27;</span>,<br> <span class="hljs-function"><span class="hljs-title">sendLetter</span>(<span class="hljs-params">target</span>)</span> &#123;<br>   target.receiveLetter(<span class="hljs-built_in">this</span>.name);<br> &#125;,<br>&#125;;<br><span class="hljs-comment">// 代理小华</span><br><span class="hljs-keyword">let</span> xiaoHua = &#123;<br> <span class="hljs-function"><span class="hljs-title">receiveLetter</span>(<span class="hljs-params">customer</span>)</span> &#123;<br>   <span class="hljs-comment">// 当然要等小红好心情时才送情书，也在送情书也才创建情书</span><br>   XiaoHong.listenGoodMood(<span class="hljs-function">() =&gt;</span> &#123;<br>     XiaoHong.receiveLetter(<span class="hljs-keyword">new</span> Letter(customer + <span class="hljs-string">&#x27;的情书&#x27;</span>));<br>   &#125;);<br> &#125;,<br>&#125;;<br><span class="hljs-comment">// 心仪对象小红</span><br><span class="hljs-keyword">let</span> XiaoHong = &#123;<br> <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;小红&#x27;</span>,<br> <span class="hljs-function"><span class="hljs-title">receiveLetter</span>(<span class="hljs-params">letter</span>)</span> &#123;<br>   <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name + <span class="hljs-string">&#x27;收到：&#x27;</span> + letter.name);<br> &#125;,<br> <span class="hljs-function"><span class="hljs-title">listenGoodMood</span>(<span class="hljs-params">fn</span>)</span> &#123;<br>   <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>     fn();<br>   &#125;, <span class="hljs-number">1000</span>);<br> &#125;,<br>&#125;;<br>XiaoMing.sendLetter(xiaoHua);<span class="hljs-comment">//小红收到：小明的情书</span><br></code></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>Proxy 是 ES6 提供的专门以代理角色出现的代理器,Vue 3.0 的响应式数据部分弃用了 Object.defineProperty，使用 Proxy 来代替它。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> proxy = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(target, handler);<br></code></pre></td></tr></table></figure>
+
+
+<p>现在用Proxy模拟一下另一种场景:为了保护不及格的同学，课代表拿到全班成绩单后只会公示及格人的成绩。对考分有疑问的考生，复议后新分数比以前大10分才有权利去更新成绩</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> scoreList = &#123;<br>  <span class="hljs-string">&#x27;wang&#x27;</span>: <span class="hljs-number">90</span>,<br>  <span class="hljs-string">&#x27;li&#x27;</span>: <span class="hljs-number">60</span>,<br>  <span class="hljs-string">&#x27;wu&#x27;</span>:<span class="hljs-number">100</span>,<br>&#125;<br><span class="hljs-keyword">const</span> yyProxy = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(scoreList, &#123;<br>  <span class="hljs-attr">get</span>:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">scoreList,name</span>) </span>&#123;<br>      <span class="hljs-keyword">if</span>(scoreList[name] &gt; <span class="hljs-number">69</span>) &#123;<br>          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;输出成绩&#x27;</span>)<br>          <span class="hljs-keyword">return</span> scoreList[name]<br>      &#125;<span class="hljs-keyword">else</span> &#123;<br>          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;不及格的成绩无法公示&#x27;</span>)<br>      &#125;<br>  &#125;,<br>  <span class="hljs-attr">set</span>:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">scoreList, name, val</span>) </span>&#123;<br>     <span class="hljs-keyword">if</span>(val - scoreList[name] &gt; <span class="hljs-number">10</span>) &#123;<br>          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;修改成绩&#x27;</span>)<br>         scoreList[name] = val<br>     &#125;<span class="hljs-keyword">else</span> &#123;<br>          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;无法修改成绩&#x27;</span>);<br>     &#125;<br>  &#125;<br>&#125;)<br>yyProxy[<span class="hljs-string">&#x27;wang&#x27;</span>] = <span class="hljs-number">98</span> <span class="hljs-comment">//无法修改成绩</span><br>yyProxy[<span class="hljs-string">&quot;li&quot;</span>] = <span class="hljs-number">80</span> <span class="hljs-comment">//修改成绩</span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我曾经以为设计模式是疯狂的，遥远的软件开发指南。然后我发现我一直在使用它们！<br />我介绍的一些模式已在许多应用程序中使用。但归根结底，它们只是理论而已。作为开发人员，是否使用取决于使用后是否使代码逻辑更易于实现和维护。</p>
+<p>web开发的五种设计模式</p>
+
+      </section>
+      <section class="extra">
+        
+          <ul class="copyright">
+  
+    <li><strong>本文作者：</strong>Smile</li>
+    <li><strong>本文链接：</strong><a href="http://example.com/2022/01/12/js/web%E5%BC%80%E5%8F%91%E7%9A%84%E4%BA%94%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/web%E5%BC%80%E5%8F%91%E7%9A%84%E4%BA%94%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.html" title="http:&#x2F;&#x2F;example.com&#x2F;2022&#x2F;01&#x2F;12&#x2F;js&#x2F;web%E5%BC%80%E5%8F%91%E7%9A%84%E4%BA%94%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F&#x2F;web%E5%BC%80%E5%8F%91%E7%9A%84%E4%BA%94%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F&#x2F;index.html">http:&#x2F;&#x2F;example.com&#x2F;2022&#x2F;01&#x2F;12&#x2F;js&#x2F;web%E5%BC%80%E5%8F%91%E7%9A%84%E4%BA%94%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F&#x2F;web%E5%BC%80%E5%8F%91%E7%9A%84%E4%BA%94%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F&#x2F;index.html</a></li>
+    <li><strong>版权声明：</strong>本博客所有文章均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" title="BY-NC-SA" target="_blank" rel="noopener">BY-NC-SA</a> 许可协议，转载请注明出处！</li>
+  
+</ul>
+        
+        
+          <section class="donate">
+  <div id="qrcode-donate">
+    <img   class="lazyload" data-original="https://pic.izhaoo.com/alipay.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" >
+  </div>
+  <div class="icon">
+    <a href="javascript:;" id="alipay"><i class="iconfont iconalipay"></i></a>
+    <a href="javascript:;" id="wechat"><i class="iconfont iconwechat-fill"></i></a>
+  </div>
+</section>
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/" rel="tag">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a></a>
+    <a href="/2021/12/12/js/%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E5%8F%98%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84/%E4%B8%80%E7%BB%B4%E6%95%B0%E7%BB%84%E5%8F%98%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84/">一维数组变二维数组<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#web%E5%BC%80%E5%8F%91%E7%9A%84%E4%BA%94%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-text">web开发的五种设计模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web%E5%BC%80%E5%8F%91%E5%BA%94%E4%BA%86%E8%A7%A3%E7%9A%845%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%F0%9F%8D%8A"><span class="toc-text">Web开发应了解的5种设计模式🍊</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9F"><span class="toc-text">什么是设计模式？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-text">单例设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-text">实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F"><span class="toc-text">策略模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-1"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0-1"><span class="toc-text">实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="toc-text">观察者模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-2"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0-2"><span class="toc-text">实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="toc-text">装饰器模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-3"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0-3"><span class="toc-text">实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F"><span class="toc-text">代理模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-4"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0-4"><span class="toc-text">实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="tencent://message/?Menu=yes&uin=894519210 "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#12B7F5'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconQQ "></i>
+      </a><a 
+        href="javascript:; "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#09BB07'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconwechat-fill "></i>
+      </a><a 
+        href="https://www.instagram.com/izhaoo/ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#DA2E76'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconinstagram "></i>
+      </a><a 
+        href="https://github.com/zhaoo "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:izhaoo@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
