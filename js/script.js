@@ -362,7 +362,7 @@ console.log("%c Github %c", "background:#333333; color:#ffffff", "", "https://gi
         }
       });
       $(".j-navbar-back-home").on("click", function () {
-        window.location.href = "/";
+        window.location.href = "/myblog/";
       });
       $(".j-navbar-search").on("click", function () {
         fn.showSearch();
