@@ -13,12 +13,12 @@
   <meta name="keywords" content="vue">
   <meta name="description" content="判断今年是否为闰年12345var   y = new...">
   <meta name="author" content="Smile">
-  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
-  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
-  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
-  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  <link rel="icon" href="/myblog/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/myblog/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/myblog/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/myblog/images/icons/stun-logo.svg" color="#333333">
   
-    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileImage" content="/myblog/images/icons/favicon-144x144.png">
     <meta rel="msapplication-TileColor" content="#000000">
   
 
@@ -61,7 +61,7 @@
       fancybox: true,
       pjax: false,
       loading: {
-        gif: '/images/theme/loading.gif',
+        gif: '/myblog/images/theme/loading.gif',
         lottie: ''
       },
       lazyload: {
@@ -96,7 +96,7 @@
           api: ''
         },
         motto: {
-          default: '我在开了灯的床头下，想问问自己的心啊。',
+          default: '何书瑶每天都要开心啊！',
           typing: true,
           api: 'https://v2.jinrishici.com/one.json',
           data_contents: '["data","content"]'
@@ -190,7 +190,7 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img   class="lazyload" data-original="/myblog/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <img   class="lazyload" data-original="/myblog/images/posts/10.jpeg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
   <div class="head-mask">
     <h1 class="head-title">判断今年是否为闰年</h1>
     <div class="head-info">
@@ -382,4 +382,38 @@
 
 
 
+<!-- 一言API -->
+<!-- 现代写法，推荐 -->
+<!-- 兼容低版本浏览器 (包括 IE)，可移除 -->
+<script src="https://cdn.jsdelivr.net/npm/bluebird@3/js/browser/bluebird.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@2.0.3/fetch.min.js"></script>
+<!--End-->
+<script>
+  fetch('http://yapi.xbongbong.com/mock/12/getYaoa')
+    .then(function (res){
+      return res.json();
+    })
+    .then(function (data) {
+      var hitokoto = document.getElementById('hitokoto');
+      const index = Math.floor(Math.random() * 8)
+      hitokoto.innerText = data.data[index].content + '——【' + data.from + '】';
+    })
+    .catch(function (err) {
+      console.error(err);
+    })
+  // https://v1.hitokoto.cn
+  // fetch('https://v1.hitokoto.cn')
+  //   .then(function (res){
+  //     // console.log('奇怪', res.json())
+  //     return res.json();
+  //   })
+  //   .then(function (data) {
+  //     console.log('奇怪哦', data)
+  //     var hitokoto = document.getElementById('hitokoto');
+  //     hitokoto.innerText = data.hitokoto + '——【' + data.from + '】';
+  //   })
+  //   .catch(function (err) {
+  //     console.error(err);
+  //   })
+</script>
 </html>

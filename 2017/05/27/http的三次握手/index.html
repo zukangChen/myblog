@@ -11,14 +11,14 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="google" content="notranslate" />
   <meta name="keywords" content="vue">
-  <meta name="description" content="http的三次握手TCP/IP协议中，TCP协议提供可...">
+  <meta name="description" content="http的三次握手aTCP/IP协议中，TCP协议提供...">
   <meta name="author" content="Smile">
-  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
-  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
-  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
-  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  <link rel="icon" href="/myblog/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/myblog/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/myblog/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/myblog/images/icons/stun-logo.svg" color="#333333">
   
-    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileImage" content="/myblog/images/icons/favicon-144x144.png">
     <meta rel="msapplication-TileColor" content="#000000">
   
 
@@ -61,7 +61,7 @@
       fancybox: true,
       pjax: false,
       loading: {
-        gif: '/images/theme/loading.gif',
+        gif: '/myblog/images/theme/loading.gif',
         lottie: ''
       },
       lazyload: {
@@ -96,7 +96,7 @@
           api: ''
         },
         motto: {
-          default: '我在开了灯的床头下，想问问自己的心啊。',
+          default: '何书瑶每天都要开心啊！',
           typing: true,
           api: 'https://v2.jinrishici.com/one.json',
           data_contents: '["data","content"]'
@@ -190,20 +190,20 @@
       <div class="col-xl-6"><article class="article">
   <div class="wrap">
     <section class="head">
-  <img   class="lazyload" data-original="/myblog/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <img   class="lazyload" data-original="/myblog/images/posts/2.jpeg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
   <div class="head-mask">
     <h1 class="head-title">http的三次握手</h1>
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>五月 27, 2017</span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1359</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1360</span>
     </div>
   </div>
 </section>
     <section class="main">
       <section class="content">
         
-        <h1 id="http的三次握手"><a href="#http的三次握手" class="headerlink" title="http的三次握手"></a>http的三次握手</h1><p>TCP/IP协议中，TCP协议提供可靠的连接服务，采用三次握手建立一个连接，如下图所示。</p>
+        <h1 id="http的三次握手a"><a href="#http的三次握手a" class="headerlink" title="http的三次握手a"></a>http的三次握手a</h1><p>TCP/IP协议中，TCP协议提供可靠的连接服务，采用三次握手建立一个连接，如下图所示。</p>
 <p>主机A为客户机，主机B为服务器<br /></p>
 <p><img   class="lazyload" data-original="/images/http%E7%9A%84%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/http.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" ></p>
 <p>确认号：其数值等于发送方的发送序号 +1(即接收方期望接收的下一个序列号)。</p>
@@ -264,7 +264,7 @@
           
   <aside class="toc-wrap">
     <h3 class="toc-title">文章目录：</h3>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#http%E7%9A%84%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="toc-text">http的三次握手</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#http%E7%9A%84%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8Ba"><span class="toc-text">http的三次握手a</span></a></li></ol>
   </aside>
 
         
@@ -396,4 +396,38 @@
 
 
 
+<!-- 一言API -->
+<!-- 现代写法，推荐 -->
+<!-- 兼容低版本浏览器 (包括 IE)，可移除 -->
+<script src="https://cdn.jsdelivr.net/npm/bluebird@3/js/browser/bluebird.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@2.0.3/fetch.min.js"></script>
+<!--End-->
+<script>
+  fetch('http://yapi.xbongbong.com/mock/12/getYaoa')
+    .then(function (res){
+      return res.json();
+    })
+    .then(function (data) {
+      var hitokoto = document.getElementById('hitokoto');
+      const index = Math.floor(Math.random() * 8)
+      hitokoto.innerText = data.data[index].content + '——【' + data.from + '】';
+    })
+    .catch(function (err) {
+      console.error(err);
+    })
+  // https://v1.hitokoto.cn
+  // fetch('https://v1.hitokoto.cn')
+  //   .then(function (res){
+  //     // console.log('奇怪', res.json())
+  //     return res.json();
+  //   })
+  //   .then(function (data) {
+  //     console.log('奇怪哦', data)
+  //     var hitokoto = document.getElementById('hitokoto');
+  //     hitokoto.innerText = data.hitokoto + '——【' + data.from + '】';
+  //   })
+  //   .catch(function (err) {
+  //     console.error(err);
+  //   })
+</script>
 </html>
